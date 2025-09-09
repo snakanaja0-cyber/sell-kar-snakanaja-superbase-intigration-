@@ -143,7 +143,7 @@
 
   /* Device Card Hover Effects */
   .device-card {
-    @apply card-premium overflow-hidden group cursor-pointer transform transition-all duration-500 hover:scale-[1.02] hover:shadow-glow;
+    @apply card-premium overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-[1.02] hover:shadow-glow;
   }
 
   /* Testimonial Card */

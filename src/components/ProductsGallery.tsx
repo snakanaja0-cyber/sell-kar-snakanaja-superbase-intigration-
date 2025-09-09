@@ -114,7 +114,7 @@ const ProductsGallery = () => {
           {filteredProducts.map((product, index) => (
             <div 
               key={product.id}
-              className="device-card animate-slide-in-up"
+              className="device-card group animate-slide-in-up"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Product Image */}
