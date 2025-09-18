@@ -21,10 +21,10 @@ const HeroSection = () => {
       {/* Hero Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="animate-fade-in-scale">
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-glow">Premium</span>
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <span className="text-glow">Sell</span>
             <br />
-            <span className="text-foreground">Gadgets</span>
+            <span className="text-foreground">Car</span>
           </h1>
           
           <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground mb-4 font-light">
@@ -36,19 +36,12 @@ const HeroSection = () => {
             Professional, secure, and hassle-free.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="flex justify-center">
             <Button 
               className="btn-hero pulse-glow"
               onClick={() => document.getElementById('price-evaluation')?.scrollIntoView({ behavior: 'smooth' })}
             >
               Get Instant Quote
-            </Button>
-            <Button 
-              variant="outline" 
-              className="btn-gold"
-              onClick={() => document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Browse Products
             </Button>
           </div>
 
