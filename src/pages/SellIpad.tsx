@@ -3,25 +3,25 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Search, Tablet, CheckCircle, Calendar, DollarSign } from "lucide-react";
+import { Search, Tablet, CheckCircle, Calendar, DollarSign, Home } from "lucide-react";
 
 const SellIpad = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showAllBrands, setShowAllBrands] = useState(false);
 
   const popularBrands = [
-    { id: "apple", name: "Apple", icon: "🍎" },
-    { id: "samsung", name: "Samsung", icon: "📱" },
-    { id: "microsoft", name: "Microsoft", icon: "💻" },
-    { id: "lenovo", name: "Lenovo", icon: "📱" },
+    { id: "apple", name: "Apple", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
+    { id: "samsung", name: "Samsung", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100&h=100&fit=crop" },
+    { id: "microsoft", name: "Microsoft", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
+    { id: "lenovo", name: "Lenovo", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
   ];
 
   const allBrands = [
     ...popularBrands,
-    { id: "huawei", name: "Huawei", icon: "📱" },
-    { id: "xiaomi", name: "Xiaomi", icon: "📱" },
-    { id: "amazon", name: "Amazon", icon: "📱" },
-    { id: "google", name: "Google", icon: "📱" },
+    { id: "huawei", name: "Huawei", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
+    { id: "xiaomi", name: "Xiaomi", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
+    { id: "amazon", name: "Amazon", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100&h=100&fit=crop" },
+    { id: "google", name: "Google", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
   ];
 
   const processSteps = [
@@ -36,6 +36,16 @@ const SellIpad = () => {
     <div className="min-h-screen bg-background">
       <div className="section-padding">
         <div className="max-w-4xl mx-auto">
+          {/* Home Button */}
+          <div className="mb-8">
+            <Link to="/">
+              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                <Home size={20} />
+                Home
+              </Button>
+            </Link>
+          </div>
+
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
@@ -70,7 +80,9 @@ const SellIpad = () => {
               {displayedBrands.map((brand) => (
                 <Link key={brand.id} to={`/sell-ipad/brand/${brand.id}`}>
                   <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 text-center p-6">
-                    <div className="text-4xl mb-3">{brand.icon}</div>
+                    <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden">
+                      <img src={brand.image} alt={brand.name} className="w-full h-full object-cover" />
+                    </div>
                     <h3 className="font-semibold text-foreground">{brand.name}</h3>
                   </Card>
                 </Link>

@@ -3,27 +3,25 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Search, Smartphone, CheckCircle, Calendar, DollarSign } from "lucide-react";
+import { Search, Smartphone, CheckCircle, Calendar, DollarSign, Home } from "lucide-react";
 
 const SellPhone = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showAllBrands, setShowAllBrands] = useState(false);
 
   const popularBrands = [
-    { id: "apple", name: "Apple", icon: "🍎" },
-    { id: "samsung", name: "Samsung", icon: "📱" },
-    { id: "mi", name: "MI", icon: "📲" },
-    { id: "vivo", name: "Vivo", icon: "📱" },
+    { id: "apple", name: "Apple", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
+    { id: "samsung", name: "Samsung", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100&h=100&fit=crop" },
+    { id: "mi", name: "MI", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
+    { id: "vivo", name: "Vivo", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&h=100&fit=crop" },
   ];
 
   const allBrands = [
     ...popularBrands,
-    { id: "oppo", name: "Oppo", icon: "📱" },
-    { id: "oneplus", name: "OnePlus", icon: "📱" },
-    { id: "realme", name: "Realme", icon: "📱" },
-    { id: "google", name: "Google", icon: "📱" },
-    { id: "motorola", name: "Motorola", icon: "📱" },
-    { id: "nokia", name: "Nokia", icon: "📱" },
+    { id: "oneplus", name: "OnePlus", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&h=100&fit=crop" },
+    { id: "oppo", name: "Oppo", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
+    { id: "realme", name: "Realme", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100&h=100&fit=crop" },
+    { id: "huawei", name: "Huawei", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
   ];
 
   const processSteps = [
@@ -38,13 +36,23 @@ const SellPhone = () => {
     <div className="min-h-screen bg-background">
       <div className="section-padding">
         <div className="max-w-4xl mx-auto">
+          {/* Home Button */}
+          <div className="mb-8">
+            <Link to="/">
+              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                <Home size={20} />
+                Home
+              </Button>
+            </Link>
+          </div>
+
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
               <span className="text-glow">Sell Old Mobile Phone</span> for Instant Cash
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Get the best price for your mobile phone with our instant cash offer
+              Find your phone model and get the best price instantly
             </p>
           </div>
 
@@ -72,7 +80,9 @@ const SellPhone = () => {
               {displayedBrands.map((brand) => (
                 <Link key={brand.id} to={`/sell-phone/brand/${brand.id}`}>
                   <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 text-center p-6">
-                    <div className="text-4xl mb-3">{brand.icon}</div>
+                    <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden">
+                      <img src={brand.image} alt={brand.name} className="w-full h-full object-cover" />
+                    </div>
                     <h3 className="font-semibold text-foreground">{brand.name}</h3>
                   </Card>
                 </Link>

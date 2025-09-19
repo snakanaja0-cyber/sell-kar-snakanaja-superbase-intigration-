@@ -211,12 +211,11 @@ const VariantSelection = () => {
                   </div>
                   
                   <div className="space-y-3">
-                    <Button className="btn-hero w-full h-12">
-                      Schedule Free Pickup
-                    </Button>
-                    <Button variant="outline" className="w-full h-12 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-                      Get Detailed Quote
-                    </Button>
+                    <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/questionnaire`}>
+                      <Button className="btn-hero w-full h-12">
+                        Get Exact Value
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               )}

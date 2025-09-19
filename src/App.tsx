@@ -10,6 +10,12 @@ import SellLaptop from "./pages/SellLaptop";
 import SellIpad from "./pages/SellIpad";
 import DeviceList from "./pages/DeviceList";
 import VariantSelection from "./pages/VariantSelection";
+import Questionnaire from "./pages/Questionnaire";
+import OtpVerification from "./pages/OtpVerification";
+import AddressForm from "./pages/AddressForm";
+import PickupScheduler from "./pages/PickupScheduler";
+import Confirmation from "./pages/Confirmation";
+import TrackOrder from "./pages/TrackOrder";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +32,12 @@ const App = () => (
           <Route path="/sell-ipad" element={<SellIpad />} />
           <Route path="/sell-:deviceType/brand/:brandId" element={<DeviceList />} />
           <Route path="/sell-:deviceType/brand/:brandId/device/:deviceId" element={<VariantSelection />} />
+          <Route path="/sell-:deviceType/brand/:brandId/device/:deviceId/questionnaire" element={<Questionnaire />} />
+          <Route path="/sell-:deviceType/brand/:brandId/device/:deviceId/otp" element={<OtpVerification />} />
+          <Route path="/sell-:deviceType/brand/:brandId/device/:deviceId/address" element={<AddressForm />} />
+          <Route path="/sell-:deviceType/brand/:brandId/device/:deviceId/pickup" element={<PickupScheduler />} />
+          <Route path="/sell-:deviceType/brand/:brandId/device/:deviceId/confirmation" element={<Confirmation />} />
+          <Route path="/track-order" element={<TrackOrder />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
