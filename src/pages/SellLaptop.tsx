@@ -104,7 +104,7 @@ const SellLaptop = () => {
 
           {/* How Sell Car Works */}
           <div className="text-center">
-            <h2 className="text-2xl font-semibold mb-8">How Sell Car Works</h2>
+            <h2 className="text-2xl font-semibold mb-8">How Sell kar Works</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {processSteps.map((step, index) => (
                 <div key={index} className="flex flex-col items-center animate-fade-in" style={{ animationDelay: `${index * 0.2}s` }}>
