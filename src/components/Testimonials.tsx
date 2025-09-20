@@ -8,7 +8,7 @@ const Testimonials = () => {
       role: "Business Owner",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
       rating: 5,
-      text: "Premium Gadgets offered me the best price for my iPhone 14 Pro. The pickup was seamless, and I received payment within hours. Highly professional service!",
+      text: "sell kar offered me the best price for my iPhone 14 Pro. The pickup was seamless, and I received payment within hours. Highly professional service!",
       location: "Mumbai"
     },
     {
@@ -17,7 +17,7 @@ const Testimonials = () => {
       role: "Software Engineer",
       image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
       rating: 5,
-      text: "I was skeptical about selling online, but Premium Gadgets exceeded my expectations. Fair pricing, quick evaluation, and excellent customer support throughout.",
+      text: "I was skeptical about selling online, but sell kar exceeded my expectations. Fair pricing, quick evaluation, and excellent customer support throughout.",
       location: "Bangalore"
     },
     {

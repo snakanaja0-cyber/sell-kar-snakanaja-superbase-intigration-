@@ -52,8 +52,8 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="mb-6">
                 <h3 className="text-3xl font-bold">
-                  <span className="text-glow">Premium</span>
-                  <span className="text-foreground"> Gadgets</span>
+                  <span className="text-glow"> sell kar</span>
+                  <span className="text-foreground">  </span>
                 </h3>
                 <p className="text-muted-foreground mt-2">
                   Your trusted marketplace for quality electronics

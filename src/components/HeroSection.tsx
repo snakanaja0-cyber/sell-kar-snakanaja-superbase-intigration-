@@ -22,9 +22,9 @@ const HeroSection = () => {
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="animate-fade-in-scale">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-glow">Sell</span>
+            <span className="text-glow">Sell kar</span>
             <br />
-            <span className="text-foreground">Car</span>
+            <span className="text-foreground"> </span>
           </h1>
           
           <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground mb-4 font-light">
