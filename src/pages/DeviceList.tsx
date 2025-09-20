@@ -31,6 +31,18 @@ const DeviceList = () => {
         { id: "galaxy-s21", name: "Galaxy S21", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
         { id: "galaxy-note-20", name: "Galaxy Note 20", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
       ],
+      mi: [
+        { id: "redmi-note-13", name: "Redmi Note 13", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+        { id: "mi-13-pro", name: "Mi 13 Pro", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+        { id: "redmi-12", name: "Redmi 12", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+        { id: "mi-11x", name: "Mi 11X", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+      ],
+      vivo: [
+        { id: "vivo-v29", name: "Vivo V29", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+        { id: "vivo-y36", name: "Vivo Y36", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+        { id: "vivo-x90", name: "Vivo X90", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+        { id: "vivo-t2", name: "Vivo T2", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=200&h=200&fit=crop" },
+      ],
     },
     laptop: {
       apple: [
@@ -44,6 +56,28 @@ const DeviceList = () => {
         { id: "dell-xps-15", name: "Dell XPS 15", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
         { id: "dell-inspiron-15", name: "Dell Inspiron 15", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
         { id: "dell-latitude-14", name: "Dell Latitude 14", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
+      ],
+      hp: [
+        { id: "hp-spectre-x360", name: "HP Spectre x360", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
+        { id: "hp-pavilion-15", name: "HP Pavilion 15", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
+        { id: "hp-envy-13", name: "HP Envy 13", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
+        { id: "hp-elitebook-840", name: "HP EliteBook 840", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
+      ],
+      lenovo: [
+        { id: "thinkpad-x1-carbon", name: "ThinkPad X1 Carbon", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=200&h=200&fit=crop" },
+        { id: "legion-5-pro", name: "Legion 5 Pro", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=200&h=200&fit=crop" },
+        { id: "ideapad-slim-3", name: "IdeaPad Slim 3", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=200&h=200&fit=crop" },
+        { id: "yoga-9i", name: "Yoga 9i", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=200&h=200&fit=crop" },
+      ],
+      asus: [
+        { id: "rog-strix-g15", name: "ROG Strix G15", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&h=200&fit=crop" },
+        { id: "zenbook-14", name: "ZenBook 14", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&h=200&fit=crop" },
+        { id: "vivobook-15", name: "VivoBook 15", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=200&h=200&fit=crop" },
+      ],
+      acer: [
+        { id: "predator-helios-300", name: "Predator Helios 300", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
+        { id: "aspire-5", name: "Aspire 5", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
+        { id: "swift-3", name: "Swift 3", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=200&h=200&fit=crop" },
       ],
     },
     ipad: {
