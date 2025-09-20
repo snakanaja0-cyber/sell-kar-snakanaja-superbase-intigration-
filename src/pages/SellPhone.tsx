@@ -76,7 +76,7 @@ const SellPhone = () => {
           {/* Choose a Brand Section */}
           <div className="mb-12">
             <h2 className="text-2xl font-semibold mb-6 text-center">Choose a Brand</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4 mb-6">
               {displayedBrands.map((brand) => (
                 <Link key={brand.id} to={`/sell-phone/brand/${brand.id}`}>
                   <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 text-center p-6">
