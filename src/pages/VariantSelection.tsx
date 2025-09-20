@@ -6,7 +6,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { ChevronLeft } from "lucide-react";
 
 const VariantSelection = () => {
-  const { deviceType, brandId, deviceId } = useParams();
+  const { brandId, deviceId } = useParams();
+  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [selectedStorage, setSelectedStorage] = useState("");
   const [selectedCondition, setSelectedCondition] = useState("");
   const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null);

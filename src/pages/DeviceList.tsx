@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 
 const DeviceList = () => {
-  const { deviceType, brandId } = useParams();
+  const { brandId } = useParams();
+  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
 
   const deviceData = {
     phone: {

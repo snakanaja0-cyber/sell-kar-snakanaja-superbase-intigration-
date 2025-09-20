@@ -7,7 +7,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { ChevronLeft, MapPin } from "lucide-react";
 
 const AddressForm = () => {
-  const { deviceType, brandId, deviceId } = useParams();
+  const { brandId, deviceId } = useParams();
+  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [formData, setFormData] = useState({
     name: "",
     address: "",

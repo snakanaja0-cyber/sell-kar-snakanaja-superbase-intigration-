@@ -7,7 +7,8 @@ import { ChevronLeft, Calendar as CalendarIcon, Clock } from "lucide-react";
 import { format } from "date-fns";
 
 const PickupScheduler = () => {
-  const { deviceType, brandId, deviceId } = useParams();
+  const { brandId, deviceId } = useParams();
+  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState("");
 

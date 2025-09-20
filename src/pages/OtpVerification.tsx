@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { ChevronLeft, Smartphone, CheckCircle } from "lucide-react";
 
 const OtpVerification = () => {
-  const { deviceType, brandId, deviceId } = useParams();
+  const { brandId, deviceId } = useParams();
+  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);

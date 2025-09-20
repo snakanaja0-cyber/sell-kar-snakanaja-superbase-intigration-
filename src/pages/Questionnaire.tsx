@@ -5,7 +5,8 @@ import { Card } from "@/components/ui/card";
 import { ChevronLeft, CheckCircle, XCircle } from "lucide-react";
 
 const Questionnaire = () => {
-  const { deviceType, brandId, deviceId } = useParams();
+  const { brandId, deviceId } = useParams();
+  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<boolean[]>([]);
   const [showResult, setShowResult] = useState(false);
