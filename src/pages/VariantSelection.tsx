@@ -156,7 +156,7 @@ const VariantSelection = () => {
               {/* Storage Selection */}
               <div>
                 <h3 className="text-xl font-semibold mb-4 text-foreground">Storage Capacity</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
                   {storageOpts.map((storage) => (
                     <Button
                       key={storage}
