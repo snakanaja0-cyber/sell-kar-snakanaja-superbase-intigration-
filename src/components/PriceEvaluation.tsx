@@ -46,10 +46,11 @@ const PriceEvaluation = () => {
                 <Link key={device.id} to={`/sell-${device.id}`}>
                   <Card className="card-premium cursor-pointer group hover:scale-105 transition-all duration-300">
                     <div className="relative overflow-hidden rounded-xl mb-4">
-                      <img
+                       <img
                         src={device.image}
-                        alt={device.name}
+                        alt={`${device.name} - ${device.description} - Get instant quotes for your old ${device.id}`}
                         className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-110"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>

@@ -1,14 +1,13 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+
+# Important pages for SEO
+Allow: /sell-phone
+Allow: /sell-laptop
+Allow: /sell-ipad
+
+# Sitemap location
+Sitemap: https://sellkar.com/sitemap.xml
+
+# Crawl delay to prevent server overload
+Crawl-delay: 1
