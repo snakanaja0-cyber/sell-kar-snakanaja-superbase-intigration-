@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
@@ -120,12 +120,12 @@ const DeviceList = () => {
         <div className="max-w-6xl mx-auto">
           {/* Back Button */}
           <div className="mb-8">
-            <a href={backPath}>
+            <Link to={backPath}>
               <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
                 <ChevronLeft size={20} />
                 Back to Brand Selection
               </Button>
-            </a>
+            </Link>
           </div>
 
           {/* Header */}
@@ -141,7 +141,7 @@ const DeviceList = () => {
           {/* Device Grid */}
           <div className="grid grid-cols-3 lg:grid-cols-6 gap-6">
             {devices.map((device) => (
-              <a key={device.id} href={`/sell-${deviceType}/brand/${brandId}/device/${device.id}/city`}>
+              <Link key={device.id} to={`/sell-${deviceType}/brand/${brandId}/device/${device.id}/city`}>
                 <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 overflow-hidden">
                   <div className="aspect-square overflow-hidden">
                     <img
@@ -154,7 +154,7 @@ const DeviceList = () => {
                     <h3 className="font-semibold text-foreground">{device.name}</h3>
                   </div>
                 </Card>
-              </a>
+              </Link>
             ))}
           </div>
 
