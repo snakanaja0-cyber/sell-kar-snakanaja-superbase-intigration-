@@ -14,7 +14,7 @@ import { ChevronLeft } from "lucide-react";
 
 const VariantSelection = () => {
 
-  const { brandId, deviceId } = useParams();
+  const { brandId, deviceId, cityId } = useParams();
 
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
 
@@ -426,7 +426,7 @@ const VariantSelection = () => {
 
                   <div className="space-y-3">
 
-                    <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/questionnaire`}>
+                    <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/questionnaire`}>
 
                       <Button className="btn-hero w-full h-12">
 

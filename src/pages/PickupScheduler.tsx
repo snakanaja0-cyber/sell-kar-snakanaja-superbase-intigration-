@@ -7,7 +7,7 @@ import { ChevronLeft, Calendar as CalendarIcon, Clock } from "lucide-react";
 import { format } from "date-fns";
 
 const PickupScheduler = () => {
-  const { brandId, deviceId } = useParams();
+  const { brandId, deviceId, cityId } = useParams();
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState("");
@@ -22,11 +22,11 @@ const PickupScheduler = () => {
   const handleConfirm = () => {
     if (selectedDate && selectedTime) {
       // Redirect to confirmation page
-      window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/confirmation`;
+      window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/confirmation`;
     }
   };
 
-  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/address`;
+  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/address`;
 
   const isFormValid = selectedDate && selectedTime;
 

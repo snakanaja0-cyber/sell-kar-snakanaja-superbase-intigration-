@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ChevronLeft, MapPin } from "lucide-react";
 
 const AddressForm = () => {
-  const { brandId, deviceId } = useParams();
+  const { brandId, deviceId, cityId } = useParams();
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [formData, setFormData] = useState({
     name: "",
@@ -27,11 +27,11 @@ const AddressForm = () => {
     e.preventDefault();
     if (formData.name && formData.address && formData.city && formData.zipCode) {
       // Redirect to pickup scheduler
-      window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/pickup`;
+      window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/pickup`;
     }
   };
 
-  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/otp`;
+  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/otp`;
 
   const isFormValid = formData.name && formData.address && formData.city && formData.zipCode;
 

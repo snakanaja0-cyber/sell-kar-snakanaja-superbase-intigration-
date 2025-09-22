@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { ChevronLeft, CheckCircle, XCircle } from "lucide-react";
 
 const Questionnaire = () => {
-  const { brandId, deviceId } = useParams();
+  const { brandId, deviceId, cityId } = useParams();
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<boolean[]>([]);
@@ -84,7 +84,7 @@ const Questionnaire = () => {
     }
   };
 
-  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}`;
+  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/variant`;
 
   const getDeviceName = (deviceId: string) => {
     const deviceNames: { [key: string]: string } = {
@@ -156,7 +156,7 @@ const Questionnaire = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/otp`}>
+                  <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/otp`}>
                     <Button className="btn-hero w-full h-12">
                       Continue
                     </Button>

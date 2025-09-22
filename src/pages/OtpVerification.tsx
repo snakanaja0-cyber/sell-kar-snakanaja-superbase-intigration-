@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronLeft, Smartphone, CheckCircle } from "lucide-react";
 
 const OtpVerification = () => {
-  const { brandId, deviceId } = useParams();
+  const { brandId, deviceId, cityId } = useParams();
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
@@ -26,14 +26,14 @@ const OtpVerification = () => {
       setIsVerified(true);
       setTimeout(() => {
         // Redirect to address form
-        window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/address`;
+        window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/address`;
       }, 2000);
     } else {
       alert("Invalid OTP. Use 1234 for demo.");
     }
   };
 
-  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/questionnaire`;
+  const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/questionnaire`;
 
   if (isVerified) {
     return (

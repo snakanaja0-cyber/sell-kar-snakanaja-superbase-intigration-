@@ -141,7 +141,7 @@ const DeviceList = () => {
           {/* Device Grid */}
           <div className="grid grid-cols-3 lg:grid-cols-6 gap-6">
             {devices.map((device) => (
-              <a key={device.id} href={`/sell-${deviceType}/brand/${brandId}/device/${device.id}`}>
+              <a key={device.id} href={`/sell-${deviceType}/brand/${brandId}/device/${device.id}/city`}>
                 <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 overflow-hidden">
                   <div className="aspect-square overflow-hidden">
                     <img
