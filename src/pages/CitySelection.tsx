@@ -135,6 +135,33 @@ const CitySelection = () => {
             </div>
           </div>
 
+          {/* My City Not Listed */}
+          <div className="mb-8">
+            <Card
+              className={`card-premium cursor-pointer transition-all duration-300 p-6 border-dashed ${
+                selectedCity === "other" 
+                  ? 'ring-2 ring-primary bg-primary/5' 
+                  : 'hover:scale-105'
+              }`}
+              onClick={() => handleCitySelect("other")}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center">
+                    <MapPin className="w-6 h-6 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground">My city is not listed here</h3>
+                    <p className="text-sm text-muted-foreground">Select this if your city is not available above</p>
+                  </div>
+                </div>
+                {selectedCity === "other" && (
+                  <CheckCircle className="w-6 h-6 text-primary" />
+                )}
+              </div>
+            </Card>
+          </div>
+
           {/* Continue Button */}
           <div className="text-center">
             <Button
