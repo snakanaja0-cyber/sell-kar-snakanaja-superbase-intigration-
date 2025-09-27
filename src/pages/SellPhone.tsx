@@ -16,13 +16,13 @@ const SellPhone = () => {
     { id: "vivo", name: "Vivo", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/20922c34-8afc.jpg?w=200" },
   ];
 
-  const allBrands = [
-    ...popularBrands,
-    { id: "oneplus", name: "OnePlus", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/dfb6c340-010f.jpg?w=200" },
-    { id: "oppo", name: "Oppo", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
-    { id: "realme", name: "Realme", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/0124cc45-3a6c.jpg?w=200" },
-    { id: "huawei", name: "Huawei", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
-  ];
+ const allBrands = [
+  ...popularBrands,
+  { id: "oneplus", name: "OnePlus", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/dfb6c340-010f.jpg?w=200" },
+  { id: "oppo", name: "Oppo", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/ac5c9a7b-76b5.jpg?w=200" },
+  { id: "realme", name: "Realme", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/0124cc45-3a6c.jpg?w=200" },
+  { id: "huawei", name: "Huawei", image: "https://imgs.search.brave.com/yzwPGLer5pyc2Wefdj4TDd7qbz_rdVcDf87r8VWacH4/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly91cGxv/YWQud2lraW1lZGlh/Lm9yZy93aWtpcGVk/aWEvY29tbW9ucy90/aHVtYi9kL2RiL0h1/YXdlaV93b3JkbWFy/a18yMDE5LnN2Zy8y/NTBweC1IdWF3ZWlf/d29yZG1hcmtfMjAx/OS5zdmcucG5n" }, // ✅ replaced with Cashify
+];
 
   const processSteps = [
     { icon: DollarSign, title: "Check Price", description: "Get instant quote" },
