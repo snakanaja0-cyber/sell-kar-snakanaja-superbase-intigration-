@@ -12,11 +12,26 @@ const Questionnaire = () => {
   const [showResult, setShowResult] = useState(false);
   const [finalPrice, setFinalPrice] = useState<number | null>(null);
 
+  // Check if device is Apple device
+  const isAppleDevice = deviceId?.includes('iphone') || deviceId?.includes('ipad') || deviceId?.includes('macbook');
+
   const questions = [
-    "Can you make calls?",
-    "Is your device working properly?",
-    "Any scratches or cracks?",
-    "Battery health above 80%?",
+    {
+      question: "Are you able to make and receive calls?",
+      description: "Check your device for cellular network connectivity issues."
+    },
+    {
+      question: "Is your device's touch screen working properly?",
+      description: "Check the touch screen functionality of your phone."
+    },
+    {
+      question: "Is your phone's screen original?",
+      description: "Pick 'Yes' if screen was never changed or was changed by Authorized Service Center. Pick 'No' if screen was changed at local shop."
+    },
+    ...(isAppleDevice ? [{
+      question: "Battery Health 80-85%",
+      description: "Check if your device's battery health is between 80-85%."
+    }] : [])
   ];
 
   const basePrices: { [key: string]: number } = {
@@ -72,9 +87,10 @@ const Questionnaire = () => {
       // Reduce price for negative answers
       newAnswers.forEach((ans, index) => {
         if (!ans) {
-          if (index === 0 || index === 1) priceMultiplier -= 0.2; // Major issues
-          if (index === 2) priceMultiplier -= 0.1; // Cosmetic issues
-          if (index === 3) priceMultiplier -= 0.05; // Battery issues
+          if (index === 0) priceMultiplier -= 0.2; // Call functionality issues
+          if (index === 1) priceMultiplier -= 0.2; // Touch screen issues
+          if (index === 2) priceMultiplier -= 0.15; // Non-original screen
+          if (index === 3 && isAppleDevice) priceMultiplier -= 0.1; // Battery health issues (Apple only)
         }
       });
 
@@ -184,6 +200,16 @@ const Questionnaire = () => {
             </Link>
           </div>
 
+          {/* Header */}
+          <div className="mb-8 text-center">
+            <h1 className="text-2xl font-bold text-foreground mb-2">
+              Tell us more about your device?
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Please answer a few questions about your device.
+            </p>
+          </div>
+
           {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex justify-between text-sm text-muted-foreground mb-2">
@@ -201,9 +227,14 @@ const Questionnaire = () => {
           {/* Question Card */}
           <Card className="card-premium text-center">
             <div className="space-y-8">
-              <h1 className="text-3xl font-bold text-foreground">
-                {questions[currentQuestion]}
-              </h1>
+              <div className="space-y-4">
+                <h2 className="text-3xl font-bold text-foreground">
+                  {questions[currentQuestion].question}
+                </h2>
+                <p className="text-lg text-muted-foreground">
+                  {questions[currentQuestion].description}
+                </p>
+              </div>
               
               <div className="flex gap-4 justify-center">
                 <Button

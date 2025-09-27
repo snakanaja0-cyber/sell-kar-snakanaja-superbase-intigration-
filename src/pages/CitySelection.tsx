@@ -11,25 +11,25 @@ const CitySelection = () => {
   const [selectedCity, setSelectedCity] = useState<string>("");
 
   const cities = [
-    { id: "delhi-ncr", name: "DELHI NCR", state: "Delhi" },
-    { id: "mumbai", name: "MUMBAI", state: "Maharashtra" },
-    { id: "chennai", name: "CHENNAI", state: "Tamil Nadu" },
-    { id: "bangalore", name: "BANGALORE", state: "Karnataka" },
-    { id: "hyderabad", name: "HYDERABAD", state: "Telangana" },
-    { id: "thane", name: "THANE", state: "Maharashtra" },
-    { id: "jaipur", name: "JAIPUR", state: "Rajasthan" },
-    { id: "pune", name: "PUNE", state: "Maharashtra" },
-    { id: "agra", name: "AGRA", state: "Uttar Pradesh" },
-    { id: "kolkata", name: "KOLKATA", state: "West Bengal" },
-    { id: "gorakhpur", name: "GORAKHPUR", state: "Uttar Pradesh" },
-    { id: "mathura", name: "MATHURA", state: "Uttar Pradesh" },
-    { id: "banaras", name: "BANARAS", state: "Uttar Pradesh" },
-    { id: "lucknow", name: "LUCKNOW", state: "Uttar Pradesh" },
-    { id: "kanpur", name: "KANPUR", state: "Uttar Pradesh" },
-    { id: "chandigarh", name: "CHANDIGARH", state: "Chandigarh" },
-    { id: "amritsar", name: "AMRITSAR", state: "Punjab" },
-    { id: "ludhiana", name: "LUDHIANA", state: "Punjab" },
-    { id: "patna", name: "PATNA", state: "Bihar" },
+    { id: "bangalore", name: "BANGALORE", iconUrl: "https://cashforphone.in/assets/images/city/BANGALORE.png" },
+    { id: "delhi", name: "DELHI", iconUrl: "https://cashforphone.in/assets/images/city/DELHI%20NCR.png" },
+    { id: "mumbai", name: "MUMBAI", iconUrl: "https://cashforphone.in/assets/images/city/MUMBAI.png" },
+    { id: "chennai", name: "CHENNAI", iconUrl: "https://cashforphone.in/assets/images/city/CHENNAI.png" },
+    { id: "hyderabad", name: "HYDERABAD", iconUrl: "https://cashforphone.in/assets/images/city/HYDERABAD.png" },
+    { id: "thane", name: "THANE", iconUrl: "https://cashforphone.in/assets/images/city/THANE.png" },
+    { id: "jaipur", name: "JAIPUR", iconUrl: "https://cashforphone.in/assets/images/city/JAIPUR.png" },
+    { id: "pune", name: "PUNE", iconUrl: "https://cashforphone.in/assets/images/city/PUNE.png" },
+    { id: "agra", name: "AGRA", iconUrl: "https://cashforphone.in/assets/images/city/AGRA.png" },
+    { id: "kolkata", name: "KOLKATA", iconUrl: "https://cashforphone.in/assets/images/city/KOLKATA.png" },
+    { id: "gorakhpur", name: "GORAKHPUR", iconUrl: "https://cashforphone.in/assets/images/city/GORAKHPUR.png" },
+    { id: "mathura", name: "MATHURA", iconUrl: "https://cashforphone.in/assets/images/city/MATHURA.png" },
+    { id: "banaras", name: "BANARAS", iconUrl: "https://cashforphone.in/assets/images/city/BANARAS.png" },
+    { id: "lucknow", name: "LUCKNOW", iconUrl: "https://cashforphone.in/assets/images/city/LUCKNOW.png" },
+    { id: "kanpur", name: "KANPUR", iconUrl: "https://cashforphone.in/assets/images/city/KANPUR.png" },
+    { id: "chandigarh", name: "CHANDIGARH", iconUrl: "https://cashforphone.in/assets/images/city/CHANDIGARH.png" },
+    { id: "amritsar", name: "AMRITSAR", iconUrl: "https://cashforphone.in/assets/images/city/AMRITSAR.png" },
+    { id: "ludhiana", name: "LUDHIANA", iconUrl: "https://cashforphone.in/assets/images/city/LUDHIANA.png" },
+    { id: "patna", name: "PATNA", iconUrl: "https://cashforphone.in/assets/images/city/PATNA.png" },
   ];
 
   const handleCitySelect = (cityId: string) => {
@@ -77,32 +77,33 @@ const CitySelection = () => {
 
           {/* Cities Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {cities.map((city) => (
-              <Card
-                key={city.id}
-                className={`card-premium cursor-pointer transition-all duration-300 p-6 ${
-                  selectedCity === city.id 
-                    ? 'ring-2 ring-primary bg-primary/5' 
-                    : 'hover:scale-105'
-                }`}
-                onClick={() => handleCitySelect(city.id)}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-primary" />
+            {cities.map((city) => {
+              return (
+                <Card
+                  key={city.id}
+                  className={`card-premium cursor-pointer transition-all duration-300 p-6 ${
+                    selectedCity === city.id 
+                      ? 'ring-2 ring-primary bg-primary/5' 
+                      : 'hover:scale-105'
+                  }`}
+                  onClick={() => handleCitySelect(city.id)}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                        <img src={city.iconUrl} alt={city.name} className="w-6 h-6 object-contain" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-foreground">{city.name}</h3>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground">{city.name}</h3>
-                      <p className="text-sm text-muted-foreground">{city.state}</p>
-                    </div>
+                    {selectedCity === city.id && (
+                      <CheckCircle className="w-6 h-6 text-primary" />
+                    )}
                   </div>
-                  {selectedCity === city.id && (
-                    <CheckCircle className="w-6 h-6 text-primary" />
-                  )}
-                </div>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </div>
 
           {/* My City Not Listed */}
