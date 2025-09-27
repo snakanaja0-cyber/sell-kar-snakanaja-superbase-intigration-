@@ -7,8 +7,7 @@ import { ChevronLeft, CheckCircle, XCircle } from "lucide-react";
 const Questionnaire = () => {
   const { brandId, deviceId, cityId } = useParams();
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<boolean[]>([]);
+  const [answers, setAnswers] = useState<{ [key: number]: boolean }>({});
   const [showResult, setShowResult] = useState(false);
   const [finalPrice, setFinalPrice] = useState<number | null>(null);
 
@@ -73,31 +72,38 @@ const Questionnaire = () => {
     "galaxy-tab-a8": 18000,
   };
 
-  const handleAnswer = (answer: boolean) => {
-    const newAnswers = [...answers, answer];
-    setAnswers(newAnswers);
+  const handleAnswer = (questionIndex: number, answer: boolean) => {
+    setAnswers(prev => ({
+      ...prev,
+      [questionIndex]: answer
+    }));
+  };
 
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      // Calculate final price based on answers
-      const basePrice = basePrices[deviceId || ""] || 20000;
-      let priceMultiplier = 0.9; // Start with 90% of base price
-      
-      // Reduce price for negative answers
-      newAnswers.forEach((ans, index) => {
-        if (!ans) {
-          if (index === 0) priceMultiplier -= 0.2; // Call functionality issues
-          if (index === 1) priceMultiplier -= 0.2; // Touch screen issues
-          if (index === 2) priceMultiplier -= 0.15; // Non-original screen
-          if (index === 3 && isAppleDevice) priceMultiplier -= 0.1; // Battery health issues (Apple only)
-        }
-      });
-
-      const calculatedPrice = Math.round(basePrice * Math.max(priceMultiplier, 0.3));
-      setFinalPrice(calculatedPrice);
-      setShowResult(true);
+  const handleSubmit = () => {
+    // Check if all questions are answered
+    const allAnswered = questions.every((_, index) => answers[index] !== undefined);
+    if (!allAnswered) {
+      alert("Please answer all questions before proceeding.");
+      return;
     }
+
+    // Calculate final price based on answers
+    const basePrice = basePrices[deviceId || ""] || 20000;
+    let priceMultiplier = 0.9; // Start with 90% of base price
+    
+    // Reduce price for negative answers
+    questions.forEach((_, index) => {
+      if (!answers[index]) {
+        if (index === 0) priceMultiplier -= 0.2; // Call functionality issues
+        if (index === 1) priceMultiplier -= 0.2; // Touch screen issues
+        if (index === 2) priceMultiplier -= 0.15; // Non-original screen
+        if (index === 3 && isAppleDevice) priceMultiplier -= 0.1; // Battery health issues (Apple only)
+      }
+    });
+
+    const calculatedPrice = Math.round(basePrice * Math.max(priceMultiplier, 0.3));
+    setFinalPrice(calculatedPrice);
+    setShowResult(true);
   };
 
   const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/variant`;
@@ -142,6 +148,10 @@ const Questionnaire = () => {
       "galaxy-tab-a8": "Galaxy Tab A8",
     };
     return deviceNames[deviceId] || deviceId;
+  };
+
+  const getAnsweredCount = () => {
+    return Object.keys(answers).length;
   };
 
   if (showResult) {
@@ -213,48 +223,75 @@ const Questionnaire = () => {
           {/* Progress Bar */}
           <div className="mb-8">
             <div className="flex justify-between text-sm text-muted-foreground mb-2">
-              <span>Question {currentQuestion + 1} of {questions.length}</span>
-              <span>{Math.round(((currentQuestion + 1) / questions.length) * 100)}%</span>
+              <span>Answered {getAnsweredCount()} of {questions.length}</span>
+              <span>{Math.round((getAnsweredCount() / questions.length) * 100)}%</span>
             </div>
             <div className="w-full bg-secondary rounded-full h-2">
               <div 
                 className="bg-primary rounded-full h-2 transition-all duration-300"
-                style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+                style={{ width: `${(getAnsweredCount() / questions.length) * 100}%` }}
               />
             </div>
           </div>
 
-          {/* Question Card */}
-          <Card className="card-premium text-center">
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-3xl font-bold text-foreground">
-                  {questions[currentQuestion].question}
-                </h2>
-                <p className="text-lg text-muted-foreground">
-                  {questions[currentQuestion].description}
-                </p>
-              </div>
-              
-              <div className="flex gap-4 justify-center">
-                <Button
-                  onClick={() => handleAnswer(true)}
-                  className="btn-hero px-8 py-4 flex items-center gap-2"
-                >
-                  <CheckCircle size={20} />
-                  Yes
-                </Button>
-                <Button
-                  onClick={() => handleAnswer(false)}
-                  variant="outline"
-                  className="px-8 py-4 flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
-                >
-                  <XCircle size={20} />
-                  No
-                </Button>
-              </div>
-            </div>
-          </Card>
+          {/* All Question Cards */}
+          <div className="space-y-6">
+            {questions.map((question, index) => (
+              <Card key={index} className="card-premium">
+                <div className="space-y-6">
+                  <div className="space-y-4 text-center">
+                    <h2 className="text-2xl font-bold text-foreground">
+                      {question.question}
+                    </h2>
+                    <p className="text-lg text-muted-foreground">
+                      {question.description}
+                    </p>
+                  </div>
+                  
+                  <div className="flex gap-4 justify-center">
+                    <Button
+                      onClick={() => handleAnswer(index, true)}
+                      className={`px-8 py-4 flex items-center gap-2 ${
+                        answers[index] === true 
+                          ? "btn-hero" 
+                          : "btn-hero opacity-50 hover:opacity-100"
+                      }`}
+                    >
+                      <CheckCircle size={20} />
+                      Yes
+                    </Button>
+                    <Button
+                      onClick={() => handleAnswer(index, false)}
+                      variant="outline"
+                      className={`px-8 py-4 flex items-center gap-2 border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground ${
+                        answers[index] === false 
+                          ? "bg-destructive text-destructive-foreground" 
+                          : ""
+                      }`}
+                    >
+                      <XCircle size={20} />
+                      No
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+
+          {/* Submit Button */}
+          <div className="mt-8 text-center">
+            <Button
+              onClick={handleSubmit}
+              className={`btn-hero px-12 py-4 text-lg ${
+                getAnsweredCount() === questions.length 
+                  ? "" 
+                  : "opacity-50 cursor-not-allowed"
+              }`}
+              disabled={getAnsweredCount() !== questions.length}
+            >
+              Calculate Final Price
+            </Button>
+          </div>
         </div>
       </div>
     </div>
