@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"; 
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -11,10 +11,25 @@ const CitySelection = () => {
   const [selectedCity, setSelectedCity] = useState<string>("");
 
   const cities = [
-    { id: "bangalore", name: "Bangalore", state: "Karnataka" },
-    { id: "chennai", name: "Chennai", state: "Tamil Nadu" },
-    { id: "delhi", name: "Delhi", state: "Delhi" },
-    { id: "gurgaon", name: "Gurgaon", state: "Haryana" },
+    { id: "delhi-ncr", name: "DELHI NCR", state: "Delhi" },
+    { id: "mumbai", name: "MUMBAI", state: "Maharashtra" },
+    { id: "chennai", name: "CHENNAI", state: "Tamil Nadu" },
+    { id: "bangalore", name: "BANGALORE", state: "Karnataka" },
+    { id: "hyderabad", name: "HYDERABAD", state: "Telangana" },
+    { id: "thane", name: "THANE", state: "Maharashtra" },
+    { id: "jaipur", name: "JAIPUR", state: "Rajasthan" },
+    { id: "pune", name: "PUNE", state: "Maharashtra" },
+    { id: "agra", name: "AGRA", state: "Uttar Pradesh" },
+    { id: "kolkata", name: "KOLKATA", state: "West Bengal" },
+    { id: "gorakhpur", name: "GORAKHPUR", state: "Uttar Pradesh" },
+    { id: "mathura", name: "MATHURA", state: "Uttar Pradesh" },
+    { id: "banaras", name: "BANARAS", state: "Uttar Pradesh" },
+    { id: "lucknow", name: "LUCKNOW", state: "Uttar Pradesh" },
+    { id: "kanpur", name: "KANPUR", state: "Uttar Pradesh" },
+    { id: "chandigarh", name: "CHANDIGARH", state: "Chandigarh" },
+    { id: "amritsar", name: "AMRITSAR", state: "Punjab" },
+    { id: "ludhiana", name: "LUDHIANA", state: "Punjab" },
+    { id: "patna", name: "PATNA", state: "Bihar" },
   ];
 
   const handleCitySelect = (cityId: string) => {
@@ -30,7 +45,7 @@ const CitySelection = () => {
   return (
     <div className="min-h-screen bg-background">
       <div className="section-padding">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Home Button */}
           <div className="mb-8">
             <Link to="/">
@@ -61,7 +76,7 @@ const CitySelection = () => {
           </div>
 
           {/* Cities Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             {cities.map((city) => (
               <Card
                 key={city.id}
