@@ -10,17 +10,17 @@ const SellPhone = () => {
   const [showAllBrands, setShowAllBrands] = useState(false);
 
   const popularBrands = [
-    { id: "apple", name: "Apple", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
-    { id: "samsung", name: "Samsung", image: "https://images.unsplash.com/photo-161094541        5295-d9bbf067e59c?w=100&h=100&fit=crop" },
-    { id: "mi", name: "MI", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
-    { id: "vivo", name: "Vivo", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&h=100&fit=crop" },
+    { id: "apple", name: "Apple", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/2e7cdc22-5a5f.jpg?w=100" },
+    { id: "samsung", name: "Samsung", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/406a512d-e8dd.jpg?w=200" },
+    { id: "mi", name: "MI", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/cb96df6e-080f.jpg?w=200" },
+    { id: "vivo", name: "Vivo", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/20922c34-8afc.jpg?w=200" },
   ];
 
   const allBrands = [
     ...popularBrands,
-    { id: "oneplus", name: "OnePlus", image: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=100&h=100&fit=crop" },
+    { id: "oneplus", name: "OnePlus", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/dfb6c340-010f.jpg?w=200" },
     { id: "oppo", name: "Oppo", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
-    { id: "realme", name: "Realme", image: "https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100&h=100&fit=crop" },
+    { id: "realme", name: "Realme", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/0124cc45-3a6c.jpg?w=200" },
     { id: "huawei", name: "Huawei", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
   ];
 
