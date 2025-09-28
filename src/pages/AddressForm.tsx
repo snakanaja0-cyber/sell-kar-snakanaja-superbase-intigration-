@@ -11,21 +11,46 @@ const AddressForm = () => {
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     address: "",
     city: "",
     zipCode: "",
   });
+  const [emailError, setEmailError] = useState("");
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
+
+    // Clear email error when user starts typing
+    if (field === 'email' && emailError) {
+      setEmailError("");
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    return gmailRegex.test(email);
+  };
+
+  const handleEmailBlur = () => {
+    if (formData.email && !validateEmail(formData.email)) {
+      setEmailError("Please enter a valid Gmail address");
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.name && formData.address && formData.city && formData.zipCode) {
+    
+    // Validate email before submission
+    if (formData.email && !validateEmail(formData.email)) {
+      setEmailError("Please enter a valid Gmail address");
+      return;
+    }
+
+    if (formData.name && formData.email && formData.address && formData.city && formData.zipCode) {
       // Redirect to pickup scheduler
       window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/pickup`;
     }
@@ -33,7 +58,7 @@ const AddressForm = () => {
 
   const backPath = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/otp`;
 
-  const isFormValid = formData.name && formData.address && formData.city && formData.zipCode;
+  const isFormValid = formData.name && formData.email && formData.address && formData.city && formData.zipCode && !emailError;
 
   return (
     <div className="min-h-screen bg-background">
@@ -76,6 +101,24 @@ const AddressForm = () => {
                   className="h-12"
                   required
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Email Address *
+                </label>
+                <Input
+                  type="email"
+                  placeholder="Enter your Gmail address"
+                  value={formData.email}
+                  onChange={(e) => handleInputChange('email', e.target.value)}
+                  onBlur={handleEmailBlur}
+                  className={`h-12 ${emailError ? 'border-red-500' : ''}`}
+                  required
+                />
+                {emailError && (
+                  <p className="text-red-500 text-sm mt-1">{emailError}</p>
+                )}
               </div>
 
               <div>
