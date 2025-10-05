@@ -45,20 +45,25 @@ const OtpVerification = () => {
         <div className="section-padding">
           <div className="max-w-2xl mx-auto">
             <Card className="card-premium text-center space-y-6">
-              <div className="w-20 h-20 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                <CheckCircle className="w-10 h-10 text-primary" />
+              <div className="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(65, 105, 225, 0.1)' }}>
+                <CheckCircle className="w-10 h-10" style={{ color: 'royalBlue' }} />
               </div>
 
-              <h1 className="text-3xl font-bold text-foreground">Phone Verified!</h1>
+              <h1 className="text-2xl font-bold" style={{ color: 'black' }}>Congratulations!</h1>
 
-              <p className="text-lg text-muted-foreground">
-                <span className="font-semibold">{deviceName}</span> evaluated at 
-                <span className="text-primary font-bold"> ₹{calculatedPrice} </span>
-              </p>
+              <div>
+                <p className="text-lg" style={{ color: 'black' }}>
+                  Your <span className="font-semibold" style={{ color: 'royalBlue' }}>{deviceName}</span> is valued at an amazing price of:
+                </p>
+                <p className="text-4xl font-bold mt-2" style={{ color: 'royalBlue' }}>
+                  ₹{calculatedPrice}
+                </p>
+              </div>
 
               <Button 
                 onClick={handleContinue}
                 className="btn-hero px-12 py-4 mt-4"
+                style={{ backgroundColor: 'royalBlue', color: 'black' }}
               >
                 Continue
               </Button>
@@ -76,7 +81,7 @@ const OtpVerification = () => {
           {/* Back Button */}
           <div className="mb-8">
             <Link to={backPath}>
-              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <Button variant="ghost" className="flex items-center gap-2" style={{ color: 'black' }}>
                 <ChevronLeft size={20} />
                 Back to Questionnaire
               </Button>
@@ -85,11 +90,11 @@ const OtpVerification = () => {
 
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
-            <div className="w-20 h-20 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
-              <Smartphone className="w-10 h-10 text-primary" />
+            <div className="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(65, 105, 225, 0.1)' }}>
+              <Smartphone className="w-10 h-10" style={{ color: 'royalBlue' }} />
             </div>
-            <h1 className="text-3xl font-bold mb-4 text-foreground">Verify Your Phone Number</h1>
-            <p className="text-lg text-muted-foreground">
+            <h1 className="text-3xl font-bold mb-4" style={{ color: 'black' }}>Verify Your Phone Number</h1>
+            <p className="text-lg" style={{ color: 'black' }}>
               We'll send you an OTP to verify your phone number
             </p>
           </div>
@@ -98,10 +103,10 @@ const OtpVerification = () => {
             {!showOtpInput ? (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Phone Number</label>
+                  <label className="block text-sm font-medium mb-2" style={{ color: 'black' }}>Phone Number</label>
                   <div className="flex gap-2">
                     <div className="flex items-center px-3 py-2 bg-secondary rounded-lg border border-border">
-                      <span className="text-foreground">+91</span>
+                      <span style={{ color: 'black' }}>+91</span>
                     </div>
                     <Input
                       type="tel"
@@ -116,7 +121,8 @@ const OtpVerification = () => {
                 <Button 
                   onClick={handleSendOtp}
                   disabled={phoneNumber.length !== 10}
-                  className="btn-hero w-full h-12"
+                  className="w-full h-12"
+                  style={{ backgroundColor: 'royalBlue', color: 'black' }}
                 >
                   Send OTP
                 </Button>
@@ -124,12 +130,12 @@ const OtpVerification = () => {
             ) : (
               <>
                 <div className="text-center mb-4">
-                  <p className="text-muted-foreground mb-1">OTP sent to +91 {phoneNumber}</p>
-                  <p className="text-sm text-muted-foreground">Use <strong>1234</strong> for demo</p>
+                  <p className="mb-1" style={{ color: 'black' }}>OTP sent to +91 {phoneNumber}</p>
+                  <p className="text-sm" style={{ color: 'black' }}>Use <strong>1234</strong> for demo</p>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Enter OTP</label>
+                  <label className="block text-sm font-medium mb-2" style={{ color: 'black' }}>Enter OTP</label>
                   <Input
                     type="text"
                     placeholder="Enter 4-digit OTP"
@@ -143,7 +149,8 @@ const OtpVerification = () => {
                 <Button 
                   onClick={handleVerifyOtp}
                   disabled={otp.length !== 4}
-                  className="btn-hero w-full h-12"
+                  className="w-full h-12"
+                  style={{ backgroundColor: 'royalBlue', color: 'black' }}
                 >
                   Verify OTP
                 </Button>
@@ -152,6 +159,7 @@ const OtpVerification = () => {
                   variant="ghost" 
                   onClick={() => setShowOtpInput(false)}
                   className="w-full"
+                  style={{ color: 'black' }}
                 >
                   Change Phone Number
                 </Button>
@@ -165,3 +173,4 @@ const OtpVerification = () => {
 };
 
 export default OtpVerification;
+

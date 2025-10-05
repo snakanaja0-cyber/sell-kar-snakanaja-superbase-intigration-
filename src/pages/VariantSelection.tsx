@@ -135,7 +135,7 @@ const VariantSelection = () => {
           {/* Back Button */}
           <div className="mb-8">
             <Link to={backPath}>
-              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <Button variant="ghost" className="flex items-center gap-2 hover:text-foreground" style={{ color: "black" }}>
                 <ChevronLeft size={20} />
                 Back to Device Selection
               </Button>
@@ -145,9 +145,9 @@ const VariantSelection = () => {
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Choose <span className="text-glow">Variant</span>
+              Choose <span style={{ color: "royalBlue" }}>Variant</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl max-w-2xl mx-auto" style={{ color: "black" }}>
               Select storage capacity for your {getDeviceName(deviceId)}
             </p>
           </div>
@@ -156,7 +156,7 @@ const VariantSelection = () => {
             <div className="space-y-8">
               {/* Storage Selection */}
               <div>
-                <h3 className="text-xl font-semibold mb-4 text-foreground">Storage Capacity</h3>
+                <h3 className="text-xl font-semibold mb-4" style={{ color: "black" }}>Storage Capacity</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {storageOpts.map((storage) => (
                     <Button
@@ -164,6 +164,7 @@ const VariantSelection = () => {
                       variant={selectedStorage === storage ? "default" : "outline"}
                       onClick={() => handleStorageSelection(storage)}
                       className="h-12"
+                      style={{ color: "black" }}
                     >
                       {storage}
                     </Button>
@@ -175,16 +176,16 @@ const VariantSelection = () => {
               {basePrice !== null && selectedStorage && (
                 <div className="text-center space-y-6 animate-fade-in pt-6 border-t border-border">
                   <div>
-                    <p className="text-lg text-muted-foreground mb-2">
+                    <p className="text-lg mb-2" style={{ color: "black" }}>
                       Base price for {getDeviceName(deviceId)} ({selectedStorage})
                     </p>
-                    <div className="text-5xl font-bold text-glow mb-4">₹{basePrice.toLocaleString()}</div>
-                    <p className="text-sm text-muted-foreground">*Final price depends on device condition</p>
+                    <div className="text-5xl font-bold mb-4" style={{ color: "royalBlue" }}>₹{basePrice.toLocaleString()}</div>
+                    <p className="text-sm" style={{ color: "black" }}>*Final price depends on device condition</p>
                   </div>
 
                   <div className="space-y-3">
                     <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/questionnaire`}>
-                      <Button className="btn-hero w-full h-12">Get Exact Value</Button>
+                      <Button className="btn-hero w-full h-12" style={{ backgroundColor: "royalBlue", color: "black" }}>Get Exact Value</Button>
                     </Link>
                   </div>
                 </div>

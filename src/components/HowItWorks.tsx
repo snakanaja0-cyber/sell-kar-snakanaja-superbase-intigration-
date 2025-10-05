@@ -6,8 +6,8 @@ const HowItWorks = () => {
       icon: Calculator,
       title: "Get a Quote",
       description: "Select your device and condition to receive an instant price estimate using our advanced evaluation system.",
-      color: "text-primary",
-      gradient: "from-primary/20 to-primary/5"
+      color: "text-blue-700",
+      gradient: "from-blue-700/20 to-blue-700/5"
     },
     {
       icon: Truck,
@@ -20,8 +20,8 @@ const HowItWorks = () => {
       icon: CreditCard,
       title: "Get Paid",
       description: "After quick inspection and verification, receive immediate payment via your preferred method - cash, bank transfer, or UPI.",
-      color: "text-primary",
-      gradient: "from-primary/20 to-primary/5"
+      color: "text-blue-700",
+      gradient: "from-blue-700/20 to-blue-700/5"
     }
   ];
 
@@ -30,9 +30,9 @@ const HowItWorks = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-scale">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            How <span className="text-glow">It Works</span>
+            How <span className="text-blue-700">It Works</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-black max-w-3xl mx-auto">
             Our streamlined process makes selling your gadgets simple, secure, and hassle-free. 
             From quote to payment in just three easy steps.
           </p>
@@ -54,7 +54,7 @@ const HowItWorks = () => {
                 
                 <div className="card-premium text-center relative z-10 group">
                   {/* Step Number */}
-                  <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm shadow-glow">
+                  <div className="absolute -top-4 -left-4 w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-glow">
                     {index + 1}
                   </div>
 
@@ -67,12 +67,12 @@ const HowItWorks = () => {
                     {step.title}
                   </h3>
                   
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-black leading-relaxed">
                     {step.description}
                   </p>
 
                   {/* Hover Effect Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-gold/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-700/5 to-gold/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
                 </div>
               </div>
             );
@@ -81,12 +81,12 @@ const HowItWorks = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16 animate-fade-in-scale">
-          <p className="text-lg text-muted-foreground mb-6">
+          <p className="text-lg text-black mb-6">
             Ready to sell your device? Start the process now!
           </p>
           <button 
             onClick={() => document.getElementById('price-evaluation')?.scrollIntoView({ behavior: 'smooth' })}
-            className="btn-hero pulse-glow"
+            className="btn-hero pulse-glow bg-blue-700 hover:bg-blue-800 text-black"
           >
             Get Started Today
           </button>

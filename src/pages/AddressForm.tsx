@@ -67,7 +67,7 @@ const AddressForm = () => {
           {/* Back Button */}
           <div className="mb-8">
             <Link to={backPath}>
-              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <Button variant="ghost" className="flex items-center gap-2" style={{ color: 'black' }}>
                 <ChevronLeft size={20} />
                 Back to Phone Verification
               </Button>
@@ -76,13 +76,13 @@ const AddressForm = () => {
 
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
-            <div className="w-20 h-20 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
-              <MapPin className="w-10 h-10 text-primary" />
+            <div className="w-20 h-20 mx-auto rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(65, 105, 225, 0.1)' }}>
+              <MapPin className="w-10 h-10" style={{ color: 'royalBlue' }} />
             </div>
-            <h1 className="text-3xl font-bold mb-4 text-foreground">
+            <h1 className="text-3xl font-bold mb-4" style={{ color: 'black' }}>
               Pickup Address
             </h1>
-            <p className="text-lg text-muted-foreground">
+            <p className="text-lg" style={{ color: 'black' }}>
               Where should we pick up your device?
             </p>
           </div>
@@ -90,7 +90,7 @@ const AddressForm = () => {
           <Card className="card-premium">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm font-medium mb-2" style={{ color: 'black' }}>
                   Full Name *
                 </label>
                 <Input
@@ -104,7 +104,7 @@ const AddressForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm font-medium mb-2" style={{ color: 'black' }}>
                   Email Address *
                 </label>
                 <Input
@@ -122,7 +122,7 @@ const AddressForm = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-foreground mb-2">
+                <label className="block text-sm font-medium mb-2" style={{ color: 'black' }}>
                   Address *
                 </label>
                 <Textarea
@@ -136,7 +136,7 @@ const AddressForm = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: 'black' }}>
                     City *
                   </label>
                   <Input
@@ -150,7 +150,7 @@ const AddressForm = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">
+                  <label className="block text-sm font-medium mb-2" style={{ color: 'black' }}>
                     Zip Code *
                   </label>
                   <Input
@@ -165,7 +165,7 @@ const AddressForm = () => {
               </div>
 
               <div className="bg-secondary/50 rounded-lg p-4">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm" style={{ color: 'black' }}>
                   <strong>Note:</strong> Our executive will visit during your selected time slot for device pickup and payment.
                 </p>
               </div>
@@ -173,7 +173,8 @@ const AddressForm = () => {
               <Button 
                 type="submit"
                 disabled={!isFormValid}
-                className="btn-hero w-full h-12"
+                className="w-full h-12"
+                style={{ backgroundColor: 'royalBlue', color: 'white' }}
               >
                 Continue to Pickup Schedule
               </Button>

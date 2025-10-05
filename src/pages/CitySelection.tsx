@@ -1,4 +1,4 @@
-import { useState } from "react"; 
+import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,6 +7,7 @@ import { Home, MapPin, CheckCircle } from "lucide-react";
 const CitySelection = () => {
   const { brandId, deviceId } = useParams();
   const navigate = useNavigate();
+  // Simplified deviceType extraction: Assumes path structure is /sell-[deviceType]/brand/...
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [selectedCity, setSelectedCity] = useState<string>("");
 
@@ -33,14 +34,21 @@ const CitySelection = () => {
   ];
 
   const handleCitySelect = (cityId: string) => {
+    // 1. Set the selected city
     setSelectedCity(cityId);
-  };
 
-  const handleContinue = () => {
-    if (selectedCity && deviceType && brandId && deviceId) {
-      navigate(`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${selectedCity}/variant`);
+    // 2. Perform the navigation immediately
+    if (deviceType && brandId && deviceId) {
+      // The navigation is deferred slightly to allow the state update (setSelectedCity) to visually happen 
+      // before the redirect, though in this case, it might happen too fast to notice.
+      // A direct call is usually fine for immediate redirects:
+      navigate(`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/variant`);
     }
   };
+
+  // The handleContinue function is now redundant and can be removed, 
+  // as is the continue button itself.
+  // const handleContinue = () => { ... }; 
 
   return (
     <div className="min-h-screen bg-background">
@@ -69,8 +77,8 @@ const CitySelection = () => {
           {/* Device Info */}
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full">
-              <span className="capitalize">{brandId}</span> 
-              <span>•</span> 
+              <span className="capitalize">{brandId}</span>
+              <span>•</span>
               <span>{deviceId}</span>
             </div>
           </div>
@@ -81,12 +89,13 @@ const CitySelection = () => {
               return (
                 <Card
                   key={city.id}
+                  // The onClick handler now handles the selection AND navigation
+                  onClick={() => handleCitySelect(city.id)}
                   className={`card-premium cursor-pointer transition-all duration-300 p-6 ${
-                    selectedCity === city.id 
-                      ? 'ring-2 ring-primary bg-primary/5' 
+                    selectedCity === city.id
+                      ? 'ring-2 ring-primary bg-primary/5'
                       : 'hover:scale-105'
                   }`}
-                  onClick={() => handleCitySelect(city.id)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
@@ -109,12 +118,13 @@ const CitySelection = () => {
           {/* My City Not Listed */}
           <div className="mb-8">
             <Card
+              // The onClick handler now handles the selection AND navigation
+              onClick={() => handleCitySelect("other")}
               className={`card-premium cursor-pointer transition-all duration-300 p-6 border-dashed ${
-                selectedCity === "other" 
-                  ? 'ring-2 ring-primary bg-primary/5' 
+                selectedCity === "other"
+                  ? 'ring-2 ring-primary bg-primary/5'
                   : 'hover:scale-105'
               }`}
-              onClick={() => handleCitySelect("other")}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -133,16 +143,7 @@ const CitySelection = () => {
             </Card>
           </div>
 
-          {/* Continue Button */}
-          <div className="text-center">
-            <Button
-              onClick={handleContinue}
-              disabled={!selectedCity}
-              className="btn-hero w-full md:w-auto px-12 py-3 text-lg"
-            >
-              Continue to Variant Selection
-            </Button>
-          </div>
+          {/* Continue Button has been removed */}
         </div>
       </div>
     </div>

@@ -52,15 +52,15 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="mb-6">
                 <h3 className="text-3xl font-bold">
-                  <span className="text-glow"> sell kar</span>
-                  <span className="text-foreground">  </span>
+                  <span className="text-blue-700"> sell kar</span>
+                  <span className="text-black">  </span>
                 </h3>
-                <p className="text-muted-foreground mt-2">
+                <p className="text-black mt-2">
                   Your trusted marketplace for quality electronics
                 </p>
               </div>
               
-              <p className="text-muted-foreground leading-relaxed mb-6">
+              <p className="text-black leading-relaxed mb-6">
                 We're revolutionizing how people buy and sell premium gadgets in India. 
                 With transparent pricing, instant payments, and doorstep services, 
                 we make technology accessible to everyone.
@@ -68,16 +68,16 @@ const Footer = () => {
 
               {/* Contact Info */}
               <div className="space-y-3">
-                <div className="flex items-center text-muted-foreground">
-                  <Phone className="w-4 h-4 mr-3 text-primary" />
+                <div className="flex items-center text-black">
+                  <Phone className="w-4 h-4 mr-3 text-black" />
                   <span>+91 98765 43210</span>
                 </div>
-                <div className="flex items-center text-muted-foreground">
-                  <Mail className="w-4 h-4 mr-3 text-primary" />
-                  <span>support@premiumgadgets.com</span>
+                <div className="flex items-center text-black">
+                  <Mail className="w-4 h-4 mr-3 text-black" />
+                  <span>support@SELLKAR INDIA.com</span>
                 </div>
-                <div className="flex items-start text-muted-foreground">
-                  <MapPin className="w-4 h-4 mr-3 text-primary mt-1" />
+                <div className="flex items-start text-black">
+                  <MapPin className="w-4 h-4 mr-3 text-black mt-1" />
                   <span>Tech Hub, Koramangala, Bangalore 560034</span>
                 </div>
               </div>
@@ -85,13 +85,13 @@ const Footer = () => {
 
             {/* Company Links */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-6">Company</h4>
+              <h4 className="text-lg font-semibold text-blue-700 mb-6">Company</h4>
               <ul className="space-y-3">
                 {footerLinks.company.map((link) => (
                   <li key={link.name}>
                     <a 
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                      className="text-black hover:text-primary transition-colors duration-300"
                     >
                       {link.name}
                     </a>
@@ -102,13 +102,13 @@ const Footer = () => {
 
             {/* Services Links */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-6">Services</h4>
+              <h4 className="text-lg font-semibold text-blue-700 mb-6">Services</h4>
               <ul className="space-y-3">
                 {footerLinks.services.map((link) => (
                   <li key={link.name}>
                     <a 
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                      className="text-black hover:text-primary transition-colors duration-300"
                     >
                       {link.name}
                     </a>
@@ -119,13 +119,13 @@ const Footer = () => {
 
             {/* Support Links */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-6">Support</h4>
+              <h4 className="text-lg font-semibold text-blue-700 mb-6">Support</h4>
               <ul className="space-y-3">
                 {footerLinks.support.map((link) => (
                   <li key={link.name}>
                     <a 
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                      className="text-black hover:text-primary transition-colors duration-300"
                     >
                       {link.name}
                     </a>
@@ -136,45 +136,19 @@ const Footer = () => {
 
             {/* Legal Links */}
             <div>
-              <h4 className="text-lg font-semibold text-foreground mb-6">Legal</h4>
+              <h4 className="text-lg font-semibold text-black mb-6">Legal</h4>
               <ul className="space-y-3">
                 {footerLinks.legal.map((link) => (
                   <li key={link.name}>
                     <a 
                       href={link.href}
-                      className="text-muted-foreground hover:text-primary transition-colors duration-300"
+                      className="text-black hover:text-primary transition-colors duration-300"
                     >
                       {link.name}
                     </a>
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* Newsletter Section */}
-        <div className="py-8 border-t border-border/30">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h4 className="text-xl font-semibold text-foreground mb-2">
-                Stay Updated
-              </h4>
-              <p className="text-muted-foreground">
-                Get the latest deals, tech news, and exclusive offers delivered to your inbox.
-              </p>
-            </div>
-            <div className="flex gap-3">
-              <div className="form-premium flex-1">
-                <input 
-                  type="email" 
-                  placeholder="Enter your email address"
-                  className="w-full bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground px-4 py-3"
-                />
-              </div>
-              <button className="btn-gold px-6 py-3 whitespace-nowrap">
-                Subscribe
-              </button>
             </div>
           </div>
         </div>
@@ -191,7 +165,7 @@ const Footer = () => {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="w-10 h-10 bg-secondary/50 rounded-full flex items-center justify-center text-muted-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
+                    className="w-10 h-10 bg-secondary/50 rounded-full flex items-center justify-center text-black hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
                   >
                     <IconComponent className="w-5 h-5" />
                   </a>
@@ -200,9 +174,9 @@ const Footer = () => {
             </div>
 
             {/* Copyright */}
-            <div className="text-center md:text-right text-muted-foreground">
+            <div className="text-center md:text-right text-black">
               <p className="mb-1">
-                © {currentYear} Premium Gadgets. All rights reserved.
+                © {currentYear} SELLKAR INDIA. All rights reserved.
               </p>
               <p className="text-sm">
                 Made with ❤️ in India | Trusted by 10,000+ customers
@@ -214,19 +188,19 @@ const Footer = () => {
         {/* Trust Badges */}
         <div className="py-6 border-t border-border/30">
           <div className="flex flex-wrap justify-center items-center gap-8 text-center">
-            <div className="flex items-center text-sm text-muted-foreground">
+            <div className="flex items-center text-sm text-black">
               <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
               SSL Secured
             </div>
-            <div className="flex items-center text-sm text-muted-foreground">
+            <div className="flex items-center text-sm text-black">
               <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
               ISO 27001 Certified
             </div>
-            <div className="flex items-center text-sm text-muted-foreground">
+            <div className="flex items-center text-sm text-black">
               <div className="w-3 h-3 bg-purple-500 rounded-full mr-2"></div>
               GDPR Compliant
             </div>
-            <div className="flex items-center text-sm text-muted-foreground">
+            <div className="flex items-center text-sm text-black">
               <div className="w-3 h-3 bg-gold rounded-full mr-2"></div>
               RBI Approved Partner
             </div>

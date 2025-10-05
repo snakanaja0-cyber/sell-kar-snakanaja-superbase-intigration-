@@ -28,33 +28,6 @@ const Testimonials = () => {
       rating: 5,
       text: "Sold my Samsung Galaxy S23 Ultra here and got ₹35,000 - much better than other platforms. The entire process was transparent and trustworthy.",
       location: "Delhi"
-    },
-    {
-      id: 4,
-      name: "Sneha Reddy",
-      role: "Doctor",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
-      rating: 5,
-      text: "Amazing experience! They picked up my iPad from my clinic and processed payment immediately. Will definitely recommend to friends and family.",
-      location: "Hyderabad"
-    },
-    {
-      id: 5,
-      name: "Vikram Singh",
-      role: "Entrepreneur",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
-      rating: 5,
-      text: "Professional team, competitive prices, and instant payments. Premium Gadgets is now my go-to platform for selling electronics. Simply outstanding!",
-      location: "Pune"
-    },
-    {
-      id: 6,
-      name: "Kavya Nair",
-      role: "Graphic Designer",
-      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face",
-      rating: 5,
-      text: "The quote was accurate, pickup was on time, and payment was instant. No hidden charges, no complications. Exactly what they promise!",
-      location: "Chennai"
     }
   ];
 
@@ -63,9 +36,9 @@ const Testimonials = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-scale">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            What Our <span className="text-glow">Customers Say</span>
+            What Our <span className="text-blue-700">Customers Say</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-black max-w-3xl mx-auto">
             Join thousands of satisfied customers who have trusted Premium Gadgets for their device selling needs. 
             Real reviews from real customers across India.
           </p>
@@ -74,20 +47,20 @@ const Testimonials = () => {
         {/* Stats Row */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 mb-16">
           <div className="text-center animate-slide-in-up">
-            <div className="text-4xl font-bold text-primary mb-2">4.9/5</div>
-            <div className="text-muted-foreground">Average Rating</div>
+            <div className="text-4xl font-bold text-blue-700 mb-2">4.9/5</div>
+            <div className="text-black">Average Rating</div>
           </div>
           <div className="text-center animate-slide-in-up" style={{animationDelay: '0.1s'}}>
-            <div className="text-4xl font-bold text-gold mb-2">10,000+</div>
-            <div className="text-muted-foreground">Happy Customers</div>
+            <div className="text-4xl font-bold text-blue-700 mb-2">10,000+</div>
+            <div className="text-black">Happy Customers</div>
           </div>
           <div className="text-center animate-slide-in-up" style={{animationDelay: '0.2s'}}>
-            <div className="text-4xl font-bold text-primary mb-2">₹50Cr+</div>
-            <div className="text-muted-foreground">Paid to Customers</div>
+            <div className="text-4xl font-bold text-blue-700 mb-2">₹50Cr+</div>
+            <div className="text-black">Paid to Customers</div>
           </div>
           <div className="text-center animate-slide-in-up" style={{animationDelay: '0.3s'}}>
-            <div className="text-4xl font-bold text-gold mb-2">25+</div>
-            <div className="text-muted-foreground">Cities Covered</div>
+            <div className="text-4xl font-bold text-blue-700 mb-2">25+</div>
+            <div className="text-black">Cities Covered</div>
           </div>
         </div>
 
@@ -120,7 +93,7 @@ const Testimonials = () => {
                 />
                 <div>
                   <div className="font-semibold text-foreground">{testimonial.name}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.role}</div>
+                  <div className="text-sm text-black">{testimonial.role}</div>
                   <div className="text-xs text-primary">{testimonial.location}</div>
                 </div>
               </div>
@@ -133,12 +106,12 @@ const Testimonials = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16 animate-fade-in-scale">
-          <p className="text-lg text-muted-foreground mb-6">
+          <p className="text-lg text-black mb-6">
             Ready to join our community of satisfied customers?
           </p>
           <button 
             onClick={() => document.getElementById('price-evaluation')?.scrollIntoView({ behavior: 'smooth' })}
-            className="btn-hero pulse-glow"
+            className="btn-hero pulse-glow bg-blue-700 hover:bg-blue-800 text-black"
           >
             Start Selling Today
           </button>
