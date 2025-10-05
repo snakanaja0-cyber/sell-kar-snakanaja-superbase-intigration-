@@ -13,10 +13,7 @@ const Footer = () => {
     ],
     services: [  
       { name: "Sell Your Device", href: "#" },
-      { name: "Buy Refurbished", href: "#" },
-      { name: "Trade-In Program", href: "#" },
-      { name: "Bulk Sales", href: "#" },
-      { name: "Corporate Solutions", href: "#" }
+       
     ],
     support: [
       { name: "Help Center", href: "#" },
@@ -52,7 +49,7 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="mb-6">
                 <h3 className="text-3xl font-bold">
-                  <span className="text-blue-700"> sell kar</span>
+                  <span className="text-blue-700"> SELLKAR</span> <span className="text-saffron"> IND</span><span className="text-indian-green">IA</span>
                   <span className="text-black">  </span>
                 </h3>
                 <p className="text-black mt-2">
