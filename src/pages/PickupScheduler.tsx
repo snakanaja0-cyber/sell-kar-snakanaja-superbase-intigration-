@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom"; // <-- FIX: Added useNavigate
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
@@ -8,6 +8,8 @@ import { format } from "date-fns";
 
 const PickupScheduler = () => {
   const { brandId, deviceId, cityId } = useParams();
+  const navigate = useNavigate(); // <-- FIX: Initialized useNavigate hook
+  
   const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [selectedTime, setSelectedTime] = useState("");
@@ -21,10 +23,8 @@ const PickupScheduler = () => {
 
   const handleConfirm = () => {
     if (selectedDate && selectedTime) {
-      // Redirect to confirmation page
-      // NOTE: Using window.location.href here as useNavigate was not imported in the original code,
-      // but typically, React Router's `useNavigate` hook should be preferred for navigation.
-      window.location.href = `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/confirmation`;
+      // FIX: Using navigate instead of window.location.href
+      navigate(`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/confirmation`);
     }
   };
 
