@@ -67,7 +67,7 @@ const CitySelection = () => {
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-              Select Your <span className="text-glow">City</span>
+              Select Your <span style={{ color: '#4169E1' }}>City</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Choose your city to get the best price and pickup service
