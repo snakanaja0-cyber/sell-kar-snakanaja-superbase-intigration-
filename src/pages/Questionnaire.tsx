@@ -1,8 +1,12 @@
-import { useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ChevronLeft, CheckCircle, XCircle, FileText } from "lucide-react";
+import { ChevronLeft, CheckCircle, XCircle } from "lucide-react";
+
+import chargerIcon from "@/assets/charger.jpg"; 
+import boxIcon from "@/assets/box.jpg";
+import billIcon from "@/assets/bill.jpg";
 
 const Questionnaire = () => {
   const { brandId, deviceId, cityId } = useParams();
@@ -16,12 +20,25 @@ const Questionnaire = () => {
   const [ageAnswer, setAgeAnswer] = useState<string>("");
   const [accessories, setAccessories] = useState<{ charger: boolean; box: boolean; bill: boolean }>({ charger: false, box: false, bill: false });
 
+  const questionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // 1. Create a new ref for the age card
+  const ageCardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (step === 2) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [step]);
+
   const isAppleDevice = deviceId?.includes('iphone') || deviceId?.includes('ipad') || deviceId?.includes('macbook');
 
   const ACCESSORY_ICONS = {
-    charger: "https://s3ng.cashify.in/cashify/productLinePartVariation/img/xhdpi/5d244b6c82230.jpg?w=128",
-    box: "https://s3ng.cashify.in/cashify/productLinePartVariation/img/xhdpi/5d244a8299b93.jpg?w=128",
-    bill: "https://s3ng.cashify.in/cashify/productLinePartVariation/img/xhdpi/5e47820f4f9d0.png?w=128" 
+    charger: chargerIcon,
+    box: boxIcon,
+    bill: billIcon 
   };
 
   const questions = [
@@ -61,22 +78,51 @@ const Questionnaire = () => {
 
   const handleAnswer = (questionIndex: number, answer: boolean) => {
     setAnswers(prev => ({ ...prev, [questionIndex]: answer }));
+
+    setTimeout(() => {
+        const nextQuestionIndex = questionIndex + 1;
+        if (nextQuestionIndex < questions.length) {
+            questionRefs.current[nextQuestionIndex]?.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
+    }, 200);
   };
 
-  const handleConditionSelect = (value: string) => setConditionAnswer(value);
+  // 2. Add scroll logic to the condition selection handler
+  const handleConditionSelect = (value: string) => {
+    setConditionAnswer(value);
+    // Auto-scroll to the age question after a short delay
+    setTimeout(() => {
+        ageCardRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+        });
+    }, 200);
+  };
+
   const handleAgeSelect = (value: string) => setAgeAnswer(value);
   
   const handleAccessoryToggle = (key: 'charger' | 'box' | 'bill') => {
     setAccessories(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const handleNext = () => {
+  const handleNextStep1 = () => {
     const allAnswered = questions.every((_, index) => answers[index] !== undefined);
-    if (!allAnswered || !conditionAnswer || !ageAnswer) {
+    if (!allAnswered) {
       alert("Please answer all questions before proceeding to the next step.");
       return;
     }
     setStep(2);
+  };
+
+  const handleNextStep2 = () => {
+    if (!conditionAnswer || !ageAnswer) {
+      alert("Please select phone condition and age before proceeding.");
+      return;
+    }
+    setStep(3);
   };
   
   const handleCalculatePrice = () => {
@@ -120,18 +166,18 @@ const Questionnaire = () => {
 
   const getDeviceName = (deviceId: string) => {
     const deviceNames: { [key: string]: string } = {
-      "iphone-15-pro-max": "iPhone 15 Pro Max", "iphone-15-pro": "iPhone 15 Pro", "iphone-15": "iPhone 15",
-      "iphone-14-pro-max": "iPhone 14 Pro Max", "iphone-14-pro": "iPhone 14 Pro", "iphone-14": "iPhone 14",
-      "iphone-13": "iPhone 13", "iphone-12": "iPhone 12", "iphone-11": "iPhone 11",
-      "iphone-x": "iPhone X", "iphone-xr": "iPhone XR", "iphone-8": "iPhone 8",
-      "galaxy-s24-ultra": "Galaxy S24 Ultra", "galaxy-s24-plus": "Galaxy S24 Plus", "galaxy-s24": "Galaxy S24",
-      "galaxy-s23-ultra": "Galaxy S23 Ultra", "galaxy-s22-ultra": "Galaxy S22 Ultra", "galaxy-s21": "Galaxy S21",
-      "galaxy-note-20": "Galaxy Note 20", "macbook-pro-16-m3": "MacBook Pro 16\" M3", "macbook-pro-14-m3": "MacBook Pro 14\" M3",
-      "macbook-air-15": "MacBook Air 15\"", "macbook-air-13": "MacBook Air 13\"", "dell-xps-13": "Dell XPS 13",
-      "dell-xps-15": "Dell XPS 15", "dell-inspiron-15": "Dell Inspiron 15", "dell-latitude-14": "Dell Latitude 14",
-      "ipad-pro-12": "iPad Pro 12.9\"", "ipad-pro-11": "iPad Pro 11\"", "ipad-air": "iPad Air", "ipad-mini": "iPad Mini",
-      "ipad-10th-gen": "iPad (10th Gen)", "galaxy-tab-s9-ultra": "Galaxy Tab S9 Ultra", "galaxy-tab-s9": "Galaxy Tab S9",
-      "galaxy-tab-s8": "Galaxy Tab S8", "galaxy-tab-a8": "Galaxy Tab A8",
+        "iphone-15-pro-max": "iPhone 15 Pro Max", "iphone-15-pro": "iPhone 15 Pro", "iphone-15": "iPhone 15",
+        "iphone-14-pro-max": "iPhone 14 Pro Max", "iphone-14-pro": "iPhone 14 Pro", "iphone-14": "iPhone 14",
+        "iphone-13": "iPhone 13", "iphone-12": "iPhone 12", "iphone-11": "iPhone 11",
+        "iphone-x": "iPhone X", "iphone-xr": "iPhone XR", "iphone-8": "iPhone 8",
+        "galaxy-s24-ultra": "Galaxy S24 Ultra", "galaxy-s24-plus": "Galaxy S24 Plus", "galaxy-s24": "Galaxy S24",
+        "galaxy-s23-ultra": "Galaxy S23 Ultra", "galaxy-s22-ultra": "Galaxy S22 Ultra", "galaxy-s21": "Galaxy S21",
+        "galaxy-note-20": "Galaxy Note 20", "macbook-pro-16-m3": "MacBook Pro 16\" M3", "macbook-pro-14-m3": "MacBook Pro 14\" M3",
+        "macbook-air-15": "MacBook Air 15\"", "macbook-air-13": "MacBook Air 13\"", "dell-xps-13": "Dell XPS 13",
+        "dell-xps-15": "Dell XPS 15", "dell-inspiron-15": "Dell Inspiron 15", "dell-latitude-14": "Dell Latitude 14",
+        "ipad-pro-12": "iPad Pro 12.9\"", "ipad-pro-11": "iPad Pro 11\"", "ipad-air": "iPad Air", "ipad-mini": "iPad Mini",
+        "ipad-10th-gen": "iPad (10th Gen)", "galaxy-tab-s9-ultra": "Galaxy Tab S9 Ultra", "galaxy-tab-s9": "Galaxy Tab S9",
+        "galaxy-tab-s8": "Galaxy Tab S8", "galaxy-tab-a8": "Galaxy Tab A8",
     };
     return deviceNames[deviceId] || deviceId;
   };
@@ -142,12 +188,40 @@ const Questionnaire = () => {
     const ageAnswered = ageAnswer ? 1 : 0;
     const accessoryAnswers = (accessories.charger ? 1 : 0) + (accessories.box ? 1 : 0) + (accessories.bill ? 1 : 0);
     
-    if (step === 1) return basicAnswers + conditionAnswered + ageAnswered;
-    return questions.length + 2 + accessoryAnswers; 
+    if (step === 1) return basicAnswers;
+    if (step === 2) return basicAnswers + conditionAnswered + ageAnswered;
+    return basicAnswers + conditionAnswered + ageAnswered + accessoryAnswers; 
   };
 
-  const getTotalQuestions = () => questions.length + 3; 
-  const isStep1Complete = getAnsweredCount() === (questions.length + 2);
+  const getTotalQuestions = () => questions.length + 5; 
+  const isStep1Complete = questions.every((_, index) => answers[index] !== undefined);
+  const isStep2Complete = conditionAnswer !== "" && ageAnswer !== "";
+
+  const getStepTitle = () => {
+    if (step === 1) return "Tell us more about your device?";
+    if (step === 2) return "Tell us more about your device?";
+    return "Do you have the following accessories?";
+  };
+
+  const getStepDescription = () => {
+    if (step === 1) return "Please answer a few questions about your device.";
+    if (step === 2) return "Please provide device condition and age information.";
+    return "Please select accessories which are available.";
+  };
+
+  const getBackText = () => {
+    if (step === 1) return "Back to Variant Selection";
+    if (step === 2) return "Back to Questions";
+    return "Back to Condition & Age";
+  };
+
+  const handleBack = () => {
+    if (step === 1) {
+      navigate(backPath);
+    } else {
+      setStep(step - 1);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -155,21 +229,19 @@ const Questionnaire = () => {
         <div className="max-w-2xl mx-auto">
           {/* Back Button */}
           <div className="mb-8">
-            <Link to={step === 1 ? backPath : '#'} onClick={() => step === 2 && setStep(1)}>
-              <Button variant="ghost" className="flex items-center gap-2" style={{ color: 'black' }}>
-                <ChevronLeft size={20} />
-                {step === 1 ? "Back to Variant Selection" : "Back to Questions"}
-              </Button>
-            </Link>
+            <Button onClick={handleBack} variant="ghost" className="flex items-center gap-2" style={{ color: 'black' }}>
+              <ChevronLeft size={20} />
+              {getBackText()}
+            </Button>
           </div>
 
           {/* Header */}
           <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold mb-2" style={{ color: 'black' }}>
-              {step === 1 ? "Tell us more about your device?" : "Do you have the following?"}
+              {getStepTitle()}
             </h1>
             <p className="text-lg" style={{ color: 'black' }}>
-              {step === 1 ? "Please answer a few questions about your device." : "Please select accessories which are available."}
+              {getStepDescription()}
             </p>
           </div>
 
@@ -190,11 +262,15 @@ const Questionnaire = () => {
             </div>
           </div>
 
-          {/* Step 1: Questions, Condition, and Age */}
+          {/* Step 1: Questions Only */}
           {step === 1 && (
             <div className="space-y-6">
               {questions.map((question, index) => (
-                <Card key={index} className="card-premium">
+                <Card 
+                  key={index} 
+                  className="card-premium"
+                  ref={(el) => (questionRefs.current[index] = el)}
+                >
                   <div className="space-y-6 text-center">
                     <h2 className="text-2xl font-bold" style={{ color: 'black' }}>{question.question}</h2>
                     <p className="text-lg" style={{ color: 'black' }}>{question.description}</p>
@@ -217,7 +293,13 @@ const Questionnaire = () => {
                   </div>
                 </Card>
               ))}
+            </div>
+          )}
 
+          {/* Step 2: Condition and Age */}
+          {step === 2 && (
+            <div className="space-y-6">
+              {/* Phone Condition */}
               <Card className="card-premium">
                 <div className="space-y-6 text-center">
                   <h2 className="text-2xl font-bold" style={{ color: 'black' }}>What is the overall condition of your phone?</h2>
@@ -242,7 +324,8 @@ const Questionnaire = () => {
                 </div>
               </Card>
 
-              <Card className="card-premium">
+              {/* 3. Attach the ref to the Phone Age card */}
+              <Card className="card-premium" ref={ageCardRef}>
                 <div className="space-y-6 text-center">
                   <h2 className="text-2xl font-bold" style={{ color: 'black' }}>How old is your phone?</h2>
                   <div className="space-y-3">
@@ -268,56 +351,66 @@ const Questionnaire = () => {
             </div>
           )}
 
-          {/* Step 2: Accessories */}
-          {step === 2 && (
+          {/* Step 3: Accessories */}
+          {step === 3 && (
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {/* Charger Card */}
-                <Card
-                    onClick={() => handleAccessoryToggle('charger')}
-                    className={`p-4 flex flex-col items-center justify-center text-center gap-3 cursor-pointer transition-all duration-200 relative h-full ${!accessories.charger ? "bg-muted/30 hover:bg-muted" : ""}`}
-                    style={{ backgroundColor: accessories.charger ? 'royalBlue' : '', color: accessories.charger ? 'white' : 'black' }}
-                >
-                    <img src={ACCESSORY_ICONS.charger} alt="Original Charger" className="w-16 h-16 object-contain" />
-                    <span className="font-semibold">Original Charger of Device</span>
-                    {accessories.charger && <CheckCircle size={20} className="absolute top-2 right-2" />}
-                </Card>
+              {/* Charger Card */}
+              <Card
+                  onClick={() => handleAccessoryToggle('charger')}
+                  className={`p-4 flex flex-col items-center justify-center text-center gap-3 cursor-pointer transition-all duration-200 relative h-full ${!accessories.charger ? "bg-muted/30 hover:bg-muted" : ""}`}
+                  style={{ backgroundColor: accessories.charger ? 'royalBlue' : '', color: accessories.charger ? 'white' : 'black' }}
+              >
+                  <img src={ACCESSORY_ICONS.charger} alt="Original Charger" className="w-16 h-16 object-contain" />
+                  <span className="font-semibold">Original Charger of Device</span>
+                  {accessories.charger && <CheckCircle size={20} className="absolute top-2 right-2" />}
+              </Card>
 
-                {/* Box Card */}
-                <Card
-                    onClick={() => handleAccessoryToggle('box')}
-                    className={`p-4 flex flex-col items-center justify-center text-center gap-3 cursor-pointer transition-all duration-200 relative h-full ${!accessories.box ? "bg-muted/30 hover:bg-muted" : ""}`}
-                    style={{ backgroundColor: accessories.box ? 'royalBlue' : '', color: accessories.box ? 'white' : 'black' }}
-                >
-                    <img src={ACCESSORY_ICONS.box} alt="Original Box" className="w-16 h-16 object-contain" />
-                    <span className="font-semibold">Original Box with same IMEI</span>
-                    {accessories.box && <CheckCircle size={20} className="absolute top-2 right-2" />}
-                </Card>
-                
-                {/* Bill Card */}
-                <Card
-                    onClick={() => handleAccessoryToggle('bill')}
-                    className={`p-4 flex flex-col items-center justify-center text-center gap-3 cursor-pointer transition-all duration-200 relative h-full ${!accessories.bill ? "bg-muted/30 hover:bg-muted" : ""}`}
-                    style={{ backgroundColor: accessories.bill ? 'royalBlue' : '', color: accessories.bill ? 'white' : 'black' }}
-                >
-                    <FileText size={64} color={accessories.bill ? 'white' : 'black'} /> 
-                    <span className="font-semibold">Bill of the device is available</span>
-                    {accessories.bill && <CheckCircle size={20} className="absolute top-2 right-2" />}
-                </Card>
+              {/* Box Card */}
+              <Card
+                  onClick={() => handleAccessoryToggle('box')}
+                  className={`p-4 flex flex-col items-center justify-center text-center gap-3 cursor-pointer transition-all duration-200 relative h-full ${!accessories.box ? "bg-muted/30 hover:bg-muted" : ""}`}
+                  style={{ backgroundColor: accessories.box ? 'royalBlue' : '', color: accessories.box ? 'white' : 'black' }}
+              >
+                  <img src={ACCESSORY_ICONS.box} alt="Original Box" className="w-16 h-16 object-contain" />
+                  <span className="font-semibold">Original Box with same IMEI</span>
+                  {accessories.box && <CheckCircle size={20} className="absolute top-2 right-2" />}
+              </Card>
+              
+              <Card
+                  onClick={() => handleAccessoryToggle('bill')}
+                  className={`p-4 flex flex-col items-center justify-center text-center gap-3 cursor-pointer transition-all duration-200 relative h-full ${!accessories.bill ? "bg-muted/30 hover:bg-muted" : ""}`}
+                  style={{ backgroundColor: accessories.bill ? 'royalBlue' : '', color: accessories.bill ? 'white' : 'black' }}
+              >
+                  <img src={ACCESSORY_ICONS.bill} alt="Bill" className="w-16 h-16 object-contain" />
+                  <span className="font-semibold">Bill of the device is available</span>
+                  {accessories.bill && <CheckCircle size={20} className="absolute top-2 right-2" />}
+              </Card>
             </div>
           )}
 
           {/* Action Button */}
           <div className="mt-8 text-center">
-            {step === 1 ? (
+            {step === 1 && (
               <Button
-                onClick={handleNext}
+                onClick={handleNextStep1}
                 className={`px-12 py-4 text-lg ${!isStep1Complete ? "opacity-50 cursor-not-allowed" : ""}`}
                 style={{ backgroundColor: 'royalBlue', color: 'black' }}
                 disabled={!isStep1Complete}
               >
                 Next
               </Button>
-            ) : (
+            )}
+            {step === 2 && (
+              <Button
+                onClick={handleNextStep2}
+                className={`px-12 py-4 text-lg ${!isStep2Complete ? "opacity-50 cursor-not-allowed" : ""}`}
+                style={{ backgroundColor: 'royalBlue', color: 'black' }}
+                disabled={!isStep2Complete}
+              >
+                Next
+              </Button>
+            )}
+            {step === 3 && (
               <Button
                 onClick={handleCalculatePrice}
                 className="px-12 py-4 text-lg"
@@ -334,4 +427,3 @@ const Questionnaire = () => {
 };
 
 export default Questionnaire;
-
