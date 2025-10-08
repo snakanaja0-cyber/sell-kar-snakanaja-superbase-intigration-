@@ -7,8 +7,7 @@ import { Home, MapPin, CheckCircle } from "lucide-react";
 const CitySelection = () => {
   const { brandId, deviceId } = useParams();
   const navigate = useNavigate();
-  // Simplified deviceType extraction: Assumes path structure is /sell-[deviceType]/brand/...
-  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
+  const deviceType = window.location.pathname.split("/")[1].replace("sell-", "");
   const [selectedCity, setSelectedCity] = useState<string>("");
 
   const cities = [
@@ -34,116 +33,87 @@ const CitySelection = () => {
   ];
 
   const handleCitySelect = (cityId: string) => {
-    // 1. Set the selected city
     setSelectedCity(cityId);
-
-    // 2. Perform the navigation immediately
     if (deviceType && brandId && deviceId) {
-      // The navigation is deferred slightly to allow the state update (setSelectedCity) to visually happen 
-      // before the redirect, though in this case, it might happen too fast to notice.
-      // A direct call is usually fine for immediate redirects:
-      navigate(`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/variant`);
+      navigate(
+        `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/variant`
+      );
     }
   };
-
-  // The handleContinue function is now redundant and can be removed, 
-  // as is the continue button itself.
-  // const handleContinue = () => { ... }; 
 
   return (
     <div className="min-h-screen bg-background">
       <div className="section-padding">
         <div className="max-w-6xl mx-auto">
-          {/* Home Button */}
-          <div className="mb-8">
-            <Link to="/">
-              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
-                <Home size={20} />
-                Home
-              </Button>
-            </Link>
-          </div>
-
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-              Select Your <span style={{ color: '#4169E1' }}>City</span>
+              Select Your <span style={{ color: "#4169E1" }}>City</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Choose your city to get the best price and pickup service
             </p>
           </div>
 
-          {/* Device Info */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full">
-              <span className="capitalize">{brandId}</span>
-              <span>•</span>
-              <span>{deviceId}</span>
-            </div>
-          </div>
-
           {/* Cities Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            {cities.map((city) => {
-              return (
-                <Card
-                  key={city.id}
-                  // The onClick handler now handles the selection AND navigation
-                  onClick={() => handleCitySelect(city.id)}
-                  className={`card-premium cursor-pointer transition-all duration-300 p-6 ${
-                    selectedCity === city.id
-                      ? 'ring-2 ring-primary bg-primary/5'
-                      : 'hover:scale-105'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                        <img src={city.iconUrl} alt={city.name} className="w-6 h-6 object-contain" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-foreground">{city.name}</h3>
-                      </div>
-                    </div>
-                    {selectedCity === city.id && (
-                      <CheckCircle className="w-6 h-6 text-primary" />
-                    )}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
+            {cities.map((city) => (
+              <Card
+                key={city.id}
+                onClick={() => handleCitySelect(city.id)}
+                className={`card-premium cursor-pointer transition-all duration-300 p-4 relative h-full ${ // <-- Added relative and h-full
+                  selectedCity === city.id
+                    ? "ring-2 ring-primary bg-primary/5"
+                    : "hover:scale-105"
+                }`}
+              >
+                {/* --- MODIFIED INTERNAL LAYOUT --- */}
+                <div className="flex flex-col items-center text-center gap-3">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                    <img
+                      src={city.iconUrl}
+                      alt={city.name}
+                      className="w-6 h-6 object-contain"
+                    />
                   </div>
-                </Card>
-              );
-            })}
-          </div>
+                  <h3 className="text-base font-semibold text-foreground h-12 flex items-center">
+                    {city.name}
+                  </h3>
+                </div>
+                {selectedCity === city.id && (
+                  <CheckCircle className="w-6 h-6 text-primary absolute top-2 right-2" /> // <-- Positioned checkmark
+                )}
+              </Card>
+            ))}
 
-          {/* My City Not Listed */}
-          <div className="mb-8">
+            {/* --- My City Not Listed Card --- */}
             <Card
-              // The onClick handler now handles the selection AND navigation
               onClick={() => handleCitySelect("other")}
-              className={`card-premium cursor-pointer transition-all duration-300 p-6 border-dashed ${
+              className={`card-premium cursor-pointer transition-all duration-300 p-4 border-dashed relative h-full ${ // <-- Added relative and h-full
                 selectedCity === "other"
-                  ? 'ring-2 ring-primary bg-primary/5'
-                  : 'hover:scale-105'
+                  ? "ring-2 ring-primary bg-primary/5"
+                  : "hover:scale-105"
               }`}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center">
-                    <MapPin className="w-6 h-6 text-muted-foreground" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground">My city is not listed here</h3>
-                    <p className="text-sm text-muted-foreground">Select this if your city is not available above</p>
-                  </div>
+              {/* --- MODIFIED INTERNAL LAYOUT --- */}
+              <div className="flex flex-col items-center text-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-muted/50 flex items-center justify-center">
+                  <MapPin className="w-6 h-6 text-muted-foreground" />
                 </div>
-                {selectedCity === "other" && (
-                  <CheckCircle className="w-6 h-6 text-primary" />
-                )}
+                <div className="h-12 flex flex-col justify-center">
+                  <h3 className="text-base font-semibold text-foreground">
+                    My city is not listed
+                  </h3>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Select this if not available
+                  </p>
+                </div>
               </div>
+              {selectedCity === "other" && (
+                <CheckCircle className="w-6 h-6 text-primary absolute top-2 right-2" /> // <-- Positioned checkmark
+              )}
             </Card>
           </div>
-
-          {/* Continue Button has been removed */}
         </div>
       </div>
     </div>
