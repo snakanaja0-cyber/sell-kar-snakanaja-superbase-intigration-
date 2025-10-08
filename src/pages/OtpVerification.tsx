@@ -105,7 +105,7 @@ const OtpVerification = () => {
                 className="btn-hero px-12 py-4 mt-4"
                 style={{ backgroundColor: "royalBlue", color: "black" }}
               >
-                Continue
+                SELL NOW
               </Button>
             </Card>
           </div>
