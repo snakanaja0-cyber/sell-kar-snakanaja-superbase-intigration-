@@ -28,6 +28,35 @@ const Testimonials = () => {
       rating: 5,
       text: "Sold my Samsung Galaxy S23 Ultra here and got ₹35,000 - much better than other platforms. The entire process was transparent and trustworthy.",
       location: "Delhi"
+ 
+    },
+    {
+      id: 4,
+      name: "Sneha Reddy",
+      role: "Doctor",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+      rating: 5,
+      text: "Amazing experience! They picked up my iPad from my clinic and processed payment immediately. Will definitely recommend to friends and family.",
+      location: "Hyderabad"
+    },
+    {
+      id: 5,
+      name: "Vikram Singh",
+      role: "Entrepreneur",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+      rating: 5,
+      text: "Professional team, competitive prices, and instant payments. sell kar is now my go-to platform for selling electronics. Simply outstanding!",
+      location: "Pune"
+    },
+    {
+      id: 6,
+      name: "Kavya Nair",
+      role: "Graphic Designer",
+      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face",
+      rating: 5,
+      text: "The quote was accurate, pickup was on time, and payment was instant. No hidden charges, no complications. Exactly what they promise!",
+      location: "Chennai"
+ 
     }
   ];
 
@@ -37,9 +66,12 @@ const Testimonials = () => {
         <div className="text-center mb-16 animate-fade-in-scale">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
             What Our <span className="text-blue-700">Customers Say</span>
-          </h2>
+          </h2>           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Join thousands of satisfied customers who have trusted sell kar for their device selling needs. 
+ 
           <p className="text-xl text-black max-w-3xl mx-auto">
             Join thousands of satisfied customers who have trusted Premium Gadgets for their device selling needs. 
+ 
             Real reviews from real customers across India.
           </p>
         </div>

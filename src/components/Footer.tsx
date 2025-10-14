@@ -49,8 +49,13 @@ const Footer = () => {
             <div className="lg:col-span-2">
               <div className="mb-6">
                 <h3 className="text-3xl font-bold">
+ 
+                  <span className="text-glow">sell</span>
+                  <span className="text-foreground"> kar</span>
+ 
                   <span className="text-blue-700"> SELLKAR</span> <span className="text-saffron"> IND</span><span className="text-indian-green">IA</span>
                   <span className="text-black">  </span>
+ 
                 </h3>
                 <p className="text-black mt-2">
                   Your trusted marketplace for quality electronics
@@ -69,9 +74,15 @@ const Footer = () => {
                   <Phone className="w-4 h-4 mr-3 text-black" />
                   <span>+91 98765 43210</span>
                 </div>
+ 
+                <div className="flex items-center text-muted-foreground">
+                  <Mail className="w-4 h-4 mr-3 text-primary" />
+                  <span>support@ .com</span>
+ 
                 <div className="flex items-center text-black">
                   <Mail className="w-4 h-4 mr-3 text-black" />
                   <span>support@SELLKAR INDIA.com</span>
+ 
                 </div>
                 <div className="flex items-start text-black">
                   <MapPin className="w-4 h-4 mr-3 text-black mt-1" />
@@ -173,7 +184,11 @@ const Footer = () => {
             {/* Copyright */}
             <div className="text-center md:text-right text-black">
               <p className="mb-1">
+ 
+                © {currentYear} sell kar. All rights reserved.
+ 
                 © {currentYear} SELLKAR INDIA. All rights reserved.
+ 
               </p>
               <p className="text-sm">
                 Made with ❤️ in India | Trusted by 10,000+ customers
