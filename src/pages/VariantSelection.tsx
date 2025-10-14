@@ -2,29 +2,27 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ChevronLeft } from "lucide-react";
 
+// Define the route params type
+type RouteParams = {
+  brandId: string;
+  deviceId: string;
+  cityId: string;
+};
+
 const VariantSelection = () => {
-  const { brandId, deviceId } = useParams();
-  const deviceType = window.location.pathname.split('/')[1].replace('sell-', '');
+  const { brandId, deviceId, cityId } = useParams<RouteParams>();
+  const deviceType = window.location.pathname.split("/")[1].replace("sell-", "");
+
   const [selectedStorage, setSelectedStorage] = useState("");
-  const [selectedCondition, setSelectedCondition] = useState("");
-  const [estimatedPrice, setEstimatedPrice] = useState<number | null>(null);
+  const [basePrice, setBasePrice] = useState<number | null>(null);
 
   const storageOptions = {
     phone: ["64GB", "128GB", "256GB", "512GB", "1TB"],
     laptop: ["256GB SSD", "512GB SSD", "1TB SSD", "2TB SSD"],
     ipad: ["64GB", "128GB", "256GB", "512GB", "1TB", "2TB"],
   };
-
-  const conditions = [
-    { id: "new", name: "Brand New (Sealed Box)", multiplier: 0.95 },
-    { id: "excellent", name: "Excellent (Like New)", multiplier: 0.85 },
-    { id: "good", name: "Good (Minor Scratches)", multiplier: 0.75 },
-    { id: "fair", name: "Fair (Visible Wear)", multiplier: 0.60 },
-    { id: "damaged", name: "Damaged (Cracks/Issues)", multiplier: 0.40 },
-  ];
 
   const basePrices: { [key: string]: number } = {
     "iphone-15-pro-max": 50000,
@@ -65,24 +63,27 @@ const VariantSelection = () => {
     "galaxy-tab-a8": 18000,
   };
 
-  const calculatePrice = () => {
-    if (!selectedStorage || !selectedCondition || !deviceId) return;
+  const calculateBasePrice = (storage: string) => {
+    if (!deviceId) return;
 
-    const basePrice = basePrices[deviceId] || 20000;
-    const condition = conditions.find(c => c.id === selectedCondition);
+    const baseDevicePrice = basePrices[deviceId] || 20000;
     
-    if (condition) {
-      let storageMultiplier = 1;
-      if (selectedStorage.includes("512GB") || selectedStorage.includes("512GB SSD")) storageMultiplier = 1.15;
-      if (selectedStorage.includes("1TB") || selectedStorage.includes("1TB SSD")) storageMultiplier = 1.3;
-      if (selectedStorage.includes("2TB") || selectedStorage.includes("2TB SSD")) storageMultiplier = 1.5;
+    // Apply storage multiplier to get base price for selected storage
+    let storageMultiplier = 1;
+    if (storage.includes("512GB")) storageMultiplier = 1.15;
+    if (storage.includes("1TB")) storageMultiplier = 1.3;
+    if (storage.includes("2TB")) storageMultiplier = 1.5;
 
-      const price = Math.round(basePrice * condition.multiplier * storageMultiplier);
-      setEstimatedPrice(price);
-    }
+    const calculatedPrice = Math.round(baseDevicePrice * storageMultiplier);
+    setBasePrice(calculatedPrice);
   };
 
-  const getDeviceName = (deviceId: string) => {
+  const handleStorageSelection = (storage: string) => {
+    setSelectedStorage(storage);
+    calculateBasePrice(storage);
+  };
+
+  const getDeviceName = (id: string) => {
     const deviceNames: { [key: string]: string } = {
       "iphone-15-pro-max": "iPhone 15 Pro Max",
       "iphone-15-pro": "iPhone 15 Pro",
@@ -92,7 +93,7 @@ const VariantSelection = () => {
       "iphone-14": "iPhone 14",
       "iphone-13": "iPhone 13",
       "iphone-12": "iPhone 12",
-      "iphone-11": "iPhone 11", 
+      "iphone-11": "iPhone 11",
       "iphone-x": "iPhone X",
       "iphone-xr": "iPhone XR",
       "iphone-8": "iPhone 8",
@@ -103,16 +104,16 @@ const VariantSelection = () => {
       "galaxy-s22-ultra": "Galaxy S22 Ultra",
       "galaxy-s21": "Galaxy S21",
       "galaxy-note-20": "Galaxy Note 20",
-      "macbook-pro-16-m3": "MacBook Pro 16\" M3",
-      "macbook-pro-14-m3": "MacBook Pro 14\" M3",
-      "macbook-air-15": "MacBook Air 15\"",
-      "macbook-air-13": "MacBook Air 13\"",
+      "macbook-pro-16-m3": 'MacBook Pro 16" M3',
+      "macbook-pro-14-m3": 'MacBook Pro 14" M3',
+      "macbook-air-15": 'MacBook Air 15"',
+      "macbook-air-13": 'MacBook Air 13"',
       "dell-xps-13": "Dell XPS 13",
       "dell-xps-15": "Dell XPS 15",
       "dell-inspiron-15": "Dell Inspiron 15",
       "dell-latitude-14": "Dell Latitude 14",
-      "ipad-pro-12": "iPad Pro 12.9\"",
-      "ipad-pro-11": "iPad Pro 11\"",
+      "ipad-pro-12": 'iPad Pro 12.9"',
+      "ipad-pro-11": 'iPad Pro 11"',
       "ipad-air": "iPad Air",
       "ipad-mini": "iPad Mini",
       "ipad-10th-gen": "iPad (10th Gen)",
@@ -121,7 +122,7 @@ const VariantSelection = () => {
       "galaxy-tab-s8": "Galaxy Tab S8",
       "galaxy-tab-a8": "Galaxy Tab A8",
     };
-    return deviceNames[deviceId] || deviceId;
+    return deviceNames[id] || id;
   };
 
   const backPath = `/sell-${deviceType}/brand/${brandId}`;
@@ -134,7 +135,7 @@ const VariantSelection = () => {
           {/* Back Button */}
           <div className="mb-8">
             <Link to={backPath}>
-              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <Button variant="ghost" className="flex items-center gap-2 hover:text-foreground" style={{ color: "black" }}>
                 <ChevronLeft size={20} />
                 Back to Device Selection
               </Button>
@@ -144,10 +145,10 @@ const VariantSelection = () => {
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              Choose <span className="text-glow">Variant</span>
+              Choose <span style={{ color: "royalBlue" }}>Variant</span>
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Select storage and condition for your {getDeviceName(deviceId || "")}
+            <p className="text-xl max-w-2xl mx-auto" style={{ color: "black" }}>
+              Select storage capacity for your {getDeviceName(deviceId)}
             </p>
           </div>
 
@@ -155,14 +156,15 @@ const VariantSelection = () => {
             <div className="space-y-8">
               {/* Storage Selection */}
               <div>
-                <h3 className="text-xl font-semibold mb-4 text-foreground">Storage Capacity</h3>
+                <h3 className="text-xl font-semibold mb-4" style={{ color: "black" }}>Storage Capacity</h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                   {storageOpts.map((storage) => (
                     <Button
                       key={storage}
                       variant={selectedStorage === storage ? "default" : "outline"}
-                      onClick={() => setSelectedStorage(storage)}
+                      onClick={() => handleStorageSelection(storage)}
                       className="h-12"
+                      style={{ color: "black" }}
                     >
                       {storage}
                     </Button>
@@ -170,52 +172,20 @@ const VariantSelection = () => {
                 </div>
               </div>
 
-              {/* Condition Selection */}
-              <div>
-                <h3 className="text-xl font-semibold mb-4 text-foreground">Device Condition</h3>
-                <Select onValueChange={setSelectedCondition}>
-                  <SelectTrigger className="h-12 bg-transparent border-border">
-                    <SelectValue placeholder="Select device condition" />
-                  </SelectTrigger>
-                  <SelectContent className="bg-card border-border">
-                    {conditions.map((condition) => (
-                      <SelectItem key={condition.id} value={condition.id} className="text-foreground hover:bg-accent">
-                        {condition.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Calculate Button */}
-              <Button 
-                onClick={calculatePrice}
-                disabled={!selectedStorage || !selectedCondition}
-                className="btn-hero w-full h-12"
-              >
-                Get Price Estimate
-              </Button>
-
-              {/* Price Display */}
-              {estimatedPrice && (
+              {/* Base Price Display */}
+              {basePrice !== null && selectedStorage && (
                 <div className="text-center space-y-6 animate-fade-in pt-6 border-t border-border">
                   <div>
-                    <p className="text-lg text-muted-foreground mb-2">
-                      Your {getDeviceName(deviceId || "")} can be worth up to
+                    <p className="text-lg mb-2" style={{ color: "black" }}>
+                      Base price for {getDeviceName(deviceId)} ({selectedStorage})
                     </p>
-                    <div className="text-5xl font-bold text-glow mb-4">
-                      ₹{estimatedPrice.toLocaleString()}
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      *Final price subject to physical inspection
-                    </p>
+                    <div className="text-5xl font-bold mb-4" style={{ color: "royalBlue" }}>₹{basePrice.toLocaleString()}</div>
+                    <p className="text-sm" style={{ color: "black" }}>*Final price depends on device condition</p>
                   </div>
-                  
+
                   <div className="space-y-3">
-                    <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/questionnaire`}>
-                      <Button className="btn-hero w-full h-12">
-                        Get Exact Value
-                      </Button>
+                    <Link to={`/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/questionnaire`}>
+                      <Button className="btn-hero w-full h-12" style={{ backgroundColor: "royalBlue", color: "black" }}>Get Exact Value</Button>
                     </Link>
                   </div>
                 </div>

@@ -10,20 +10,20 @@ const Confirmation = () => {
         <div className="max-w-2xl mx-auto">
           <Card className="card-premium text-center">
             <div className="space-y-8">
-              <div className="w-24 h-24 mx-auto bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                <CheckCircle className="w-12 h-12 text-primary" />
+              <div className="w-24 h-24 mx-auto rounded-full flex items-center justify-center mb-6" style={{ backgroundColor: 'rgba(65, 105, 225, 0.1)' }}>
+                <CheckCircle className="w-12 h-12" style={{ color: 'royalBlue' }} />
               </div>
               
               <div>
-                <h1 className="text-4xl font-bold mb-4 text-foreground">
+                <h1 className="text-4xl font-bold mb-4" style={{ color: 'black' }}>
                   Thank You!
                 </h1>
-                <p className="text-xl text-muted-foreground mb-6">
+                <p className="text-xl mb-6" style={{ color: 'black' }}>
                   Your pickup has been scheduled successfully
                 </p>
                 <div className="bg-secondary/50 rounded-lg p-6 text-left">
-                  <h3 className="font-semibold text-foreground mb-3">What happens next?</h3>
-                  <ul className="space-y-2 text-muted-foreground">
+                  <h3 className="font-semibold mb-3" style={{ color: 'black' }}>What happens next?</h3>
+                  <ul className="space-y-2" style={{ color: 'black' }}>
                     <li>• Our executive will contact you before arrival</li>
                     <li>• Device inspection will be done at your location</li>
                     <li>• Payment will be made instantly after inspection</li>
@@ -32,21 +32,21 @@ const Confirmation = () => {
                 </div>
               </div>
 
-              <div className="bg-primary/10 rounded-lg p-4">
-                <p className="text-sm text-foreground">
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'rgba(65, 105, 225, 0.1)' }}>
+                <p className="text-sm" style={{ color: 'black' }}>
                   <strong>Order ID:</strong> SCR{Math.random().toString(36).substr(2, 9).toUpperCase()}
                 </p>
               </div>
 
               <div className="space-y-3">
                 <Link to="/">
-                  <Button className="btn-hero w-full h-12 flex items-center justify-center gap-2">
+                  <Button className="w-full h-12 flex items-center justify-center gap-2" style={{ backgroundColor: 'royalBlue', color: 'white' }}>
                     <Home size={20} />
                     Back to Home
                   </Button>
                 </Link>
                 <Link to="/track-order">
-                  <Button variant="outline" className="w-full h-12 flex items-center justify-center gap-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground">
+                  <Button variant="outline" className="w-full h-12 flex items-center justify-center gap-2 hover:text-white" style={{ borderColor: 'royalBlue', color: 'royalBlue' }}>
                     <Package size={20} />
                     Track Order
                   </Button>
@@ -54,7 +54,7 @@ const Confirmation = () => {
               </div>
 
               <div className="text-center pt-4 border-t border-border">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm" style={{ color: 'black' }}>
                   Need help? Contact us at <strong>support@sellcar.com</strong> or call <strong>1800-123-4567</strong>
                 </p>
               </div>

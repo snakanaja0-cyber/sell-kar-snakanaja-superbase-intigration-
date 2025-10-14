@@ -10,6 +10,7 @@ import SellPhone from "./pages/SellPhone";
 import SellLaptop from "./pages/SellLaptop";
 import SellIpad from "./pages/SellIpad";
 import DeviceList from "./pages/DeviceList";
+import CitySelection from "./pages/CitySelection";
 import VariantSelection from "./pages/VariantSelection";
 import Questionnaire from "./pages/Questionnaire";
 import OtpVerification from "./pages/OtpVerification";
@@ -43,30 +44,33 @@ const App = () => (
           
           {/* Phone Routes */}
           <Route path="/sell-phone/brand/:brandId" element={<DeviceList />} />
-          <Route path="/sell-phone/brand/:brandId/device/:deviceId" element={<VariantSelection />} />
-          <Route path="/sell-phone/brand/:brandId/device/:deviceId/questionnaire" element={<Questionnaire />} />
-          <Route path="/sell-phone/brand/:brandId/device/:deviceId/otp" element={<OtpVerification />} />
-          <Route path="/sell-phone/brand/:brandId/device/:deviceId/address" element={<AddressForm />} />
-          <Route path="/sell-phone/brand/:brandId/device/:deviceId/pickup" element={<PickupScheduler />} />
-          <Route path="/sell-phone/brand/:brandId/device/:deviceId/confirmation" element={<Confirmation />} />
+          <Route path="/sell-phone/brand/:brandId/device/:deviceId/city" element={<CitySelection />} />
+          <Route path="/sell-phone/brand/:brandId/device/:deviceId/city/:cityId/variant" element={<VariantSelection />} />
+          <Route path="/sell-phone/brand/:brandId/device/:deviceId/city/:cityId/questionnaire" element={<Questionnaire />} />
+          <Route path="/sell-phone/brand/:brandId/device/:deviceId/city/:cityId/otp" element={<OtpVerification />} />
+          <Route path="/sell-phone/brand/:brandId/device/:deviceId/city/:cityId/address" element={<AddressForm />} />
+          <Route path="/sell-phone/brand/:brandId/device/:deviceId/city/:cityId/pickup" element={<PickupScheduler />} />
+          <Route path="/sell-phone/brand/:brandId/device/:deviceId/city/:cityId/confirmation" element={<Confirmation />} />
           
           {/* Laptop Routes */}
           <Route path="/sell-laptop/brand/:brandId" element={<DeviceList />} />
-          <Route path="/sell-laptop/brand/:brandId/device/:deviceId" element={<VariantSelection />} />
-          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/questionnaire" element={<Questionnaire />} />
-          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/otp" element={<OtpVerification />} />
-          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/address" element={<AddressForm />} />
-          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/pickup" element={<PickupScheduler />} />
-          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/confirmation" element={<Confirmation />} />
+          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/city" element={<CitySelection />} />
+          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/city/:cityId/variant" element={<VariantSelection />} />
+          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/city/:cityId/questionnaire" element={<Questionnaire />} />
+          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/city/:cityId/otp" element={<OtpVerification />} />
+          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/city/:cityId/address" element={<AddressForm />} />
+          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/city/:cityId/pickup" element={<PickupScheduler />} />
+          <Route path="/sell-laptop/brand/:brandId/device/:deviceId/city/:cityId/confirmation" element={<Confirmation />} />
           
           {/* iPad Routes */}
           <Route path="/sell-ipad/brand/:brandId" element={<DeviceList />} />
-          <Route path="/sell-ipad/brand/:brandId/device/:deviceId" element={<VariantSelection />} />
-          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/questionnaire" element={<Questionnaire />} />
-          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/otp" element={<OtpVerification />} />
-          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/address" element={<AddressForm />} />
-          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/pickup" element={<PickupScheduler />} />
-          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/confirmation" element={<Confirmation />} />
+          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/city" element={<CitySelection />} />
+          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/city/:cityId/variant" element={<VariantSelection />} />
+          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/city/:cityId/questionnaire" element={<Questionnaire />} />
+          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/city/:cityId/otp" element={<OtpVerification />} />
+          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/city/:cityId/address" element={<AddressForm />} />
+          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/city/:cityId/pickup" element={<PickupScheduler />} />
+          <Route path="/sell-ipad/brand/:brandId/device/:deviceId/city/:cityId/confirmation" element={<Confirmation />} />
           <Route path="/track-order" element={<TrackOrder />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

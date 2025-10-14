@@ -1,27 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Search, Laptop, CheckCircle, Calendar, DollarSign, Home } from "lucide-react";
+import { CheckCircle, Calendar, DollarSign, Home } from "lucide-react";
 
 const SellLaptop = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showAllBrands, setShowAllBrands] = useState(false);
-
-  const popularBrands = [
-    { id: "apple", name: "Apple", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
-    { id: "dell", name: "Dell", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=100&h=100&fit=crop" },
-    { id: "hp", name: "HP", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=100&h=100&fit=crop" },
-    { id: "lenovo", name: "Lenovo", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
-  ];
-
-  const allBrands = [
-    ...popularBrands,
-    { id: "asus", name: "Asus", image: "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=100&h=100&fit=crop" },
-    { id: "acer", name: "Acer", image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=100&h=100&fit=crop" },
-    { id: "msi", name: "MSI", image: "https://images.unsplash.com/photo-1574944985070-8f3ebc6b79d2?w=100&h=100&fit=crop" },
-    { id: "microsoft", name: "Microsoft", image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=100&h=100&fit=crop" },
+  const brands = [
+    { id: "apple", name: "Apple", image: "https://s3ng.cashify.in/cashify/brand/img/xhdpi/2e7cdc22-5a5f.jpg?w=100" },
   ];
 
   const processSteps = [
@@ -30,8 +15,6 @@ const SellLaptop = () => {
     { icon: CheckCircle, title: "Get Paid", description: "Receive payment" },
   ];
 
-  const displayedBrands = showAllBrands ? allBrands : popularBrands;
-
   return (
     <div className="min-h-screen bg-background">
       <div className="section-padding">
@@ -39,7 +22,7 @@ const SellLaptop = () => {
           {/* Home Button */}
           <div className="mb-8">
             <Link to="/">
-              <Button variant="ghost" className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+              <Button variant="ghost" className="flex items-center gap-2 text-black hover:text-black">
                 <Home size={20} />
                 Home
               </Button>
@@ -49,57 +32,28 @@ const SellLaptop = () => {
           {/* Header */}
           <div className="text-center mb-12 animate-fade-in">
             <h1 className="text-4xl sm:text-5xl font-bold mb-6">
-              <span className="text-glow">Search Model</span> for Your Device to Sell
+              <span className="text-blue-600">Search Model</span> for Your Device to Sell
             </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-xl text-black max-w-2xl mx-auto">
               Find your laptop model and get the best price instantly
             </p>
           </div>
 
-          {/* Search Bar */}
-          <Card className="card-premium mb-12">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground" size={20} />
-              <Input
-                type="text"
-                placeholder="Search for your laptop model (e.g., MacBook Pro, Dell XPS)"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-12 h-14 text-lg bg-transparent border-none"
-              />
-              <Button className="absolute right-2 top-1/2 transform -translate-y-1/2 btn-hero">
-                Search
-              </Button>
-            </div>
-          </Card>
-
           {/* Choose a Brand Section */}
           <div className="mb-12">
             <h2 className="text-2xl font-semibold mb-6 text-center">Choose a Brand</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              {displayedBrands.map((brand) => (
-                <Link key={brand.id} to={`/sell-laptop/brand/${brand.id}`}>
+            <div className="flex justify-center mb-6">
+              {brands.map((brand) => (
+                <div key={brand.id}>
                   <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 text-center p-6">
                     <div className="w-16 h-16 mx-auto mb-3 rounded-full overflow-hidden">
                       <img src={brand.image} alt={brand.name} className="w-full h-full object-cover" />
                     </div>
-                    <h3 className="font-semibold text-foreground">{brand.name}</h3>
+                    <h3 className="font-semibold text-black">{brand.name}</h3>
                   </Card>
-                </Link>
+                </div>
               ))}
             </div>
-            
-            {!showAllBrands && (
-              <div className="text-center">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowAllBrands(true)}
-                  className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
-                >
-                  View More Brands
-                </Button>
-              </div>
-            )}
           </div>
 
           {/* How Sell Car Works */}
@@ -111,8 +65,8 @@ const SellLaptop = () => {
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-4">
                     <step.icon className="w-8 h-8 text-primary" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-foreground">{step.title}</h3>
-                  <p className="text-muted-foreground text-center">{step.description}</p>
+                  <h3 className="text-lg font-semibold mb-2 text-black">{step.title}</h3>
+                  <p className="text-black text-center">{step.description}</p>
                   {index < processSteps.length - 1 && (
                     <div className="hidden md:block absolute top-8 left-1/2 w-32 h-0.5 bg-primary/20 transform translate-x-8"></div>
                   )}

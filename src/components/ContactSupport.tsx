@@ -43,9 +43,9 @@ const ContactSupport = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-scale">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
-            Contact <span className="text-glow">& Support</span>
+            Contact <span className="text-[#4169E1]">& Support</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-xl text-black max-w-3xl mx-auto">
             Have questions? Need assistance? Our dedicated support team is here to help you 24/7. 
             Get in touch through your preferred channel.
           </p>
@@ -66,7 +66,7 @@ const ContactSupport = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="bg-transparent border-none text-foreground placeholder:text-muted-foreground"
+                      className="bg-transparent border-none text-foreground placeholder:text-black"
                     />
                   </div>
                   
@@ -78,7 +78,7 @@ const ContactSupport = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="bg-transparent border-none text-foreground placeholder:text-muted-foreground"
+                      className="bg-transparent border-none text-foreground placeholder:text-black"
                     />
                   </div>
                 </div>
@@ -92,7 +92,7 @@ const ContactSupport = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       required
-                      className="bg-transparent border-none text-foreground placeholder:text-muted-foreground"
+                      className="bg-transparent border-none text-foreground placeholder:text-black"
                     />
                   </div>
                   
@@ -103,7 +103,7 @@ const ContactSupport = () => {
                       value={formData.subject}
                       onChange={handleInputChange}
                       required
-                      className="bg-transparent border-none text-foreground placeholder:text-muted-foreground"
+                      className="bg-transparent border-none text-foreground placeholder:text-black"
                     />
                   </div>
                 </div>
@@ -116,11 +116,11 @@ const ContactSupport = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    className="bg-transparent border-none text-foreground placeholder:text-muted-foreground resize-none"
+                    className="bg-transparent border-none text-foreground placeholder:text-black resize-none"
                   />
                 </div>
 
-                <Button type="submit" className="btn-hero w-full">
+                <Button type="submit" className="w-full bg-[#4169E1] text-black hover:bg-[#315bb5] font-semibold">
                   Send Message
                 </Button>
               </form>
@@ -146,18 +146,18 @@ const ContactSupport = () => {
                 </button>
 
                 <div className="flex items-center p-4 bg-secondary/50 rounded-xl">
-                  <Phone className="w-6 h-6 text-primary mr-3" />
+                  <Phone className="w-6 h-6 text-[#4169E1] mr-3" />
                   <div>
                     <div className="font-semibold text-foreground">Call Us</div>
-                    <div className="text-primary">+91 98765 43210</div>
+                    <div className="text-[#4169E1]">+91 98765 43210</div>
                   </div>
                 </div>
 
                 <div className="flex items-center p-4 bg-secondary/50 rounded-xl">
-                  <Mail className="w-6 h-6 text-primary mr-3" />
+                  <Mail className="w-6 h-6 text-[#4169E1] mr-3" />
                   <div>
                     <div className="font-semibold text-foreground">Email Support</div>
-                    <div className="text-primary">support@premiumgadgets.com</div>
+                    <div className="text-[#4169E1]">support@sellkar india.com</div>
                   </div>
                 </div>
               </div>
@@ -169,10 +169,10 @@ const ContactSupport = () => {
               
               <div className="space-y-4">
                 <div className="flex items-start">
-                  <MapPin className="w-6 h-6 text-primary mr-3 mt-1" />
+                  <MapPin className="w-6 h-6 text-[#4169E1] mr-3 mt-1" />
                   <div>
                     <div className="font-semibold text-foreground">Headquarters</div>
-                    <div className="text-muted-foreground">
+                    <div className="text-black">
                       Tech Hub, Koramangala<br />
                       Bangalore, Karnataka 560034
                     </div>
@@ -180,10 +180,10 @@ const ContactSupport = () => {
                 </div>
 
                 <div className="flex items-start">
-                  <Clock className="w-6 h-6 text-primary mr-3 mt-1" />
+                  <Clock className="w-6 h-6 text-[#4169E1] mr-3 mt-1" />
                   <div>
                     <div className="font-semibold text-foreground">Business Hours</div>
-                    <div className="text-muted-foreground">
+                    <div className="text-black">
                       Monday - Sunday: 9:00 AM - 9:00 PM<br />
                       Emergency Support: 24/7
                     </div>
@@ -191,10 +191,10 @@ const ContactSupport = () => {
                 </div>
 
                 <div className="flex items-start">
-                  <Shield className="w-6 h-6 text-primary mr-3 mt-1" />
+                  <Shield className="w-6 h-6 text-[#4169E1] mr-3 mt-1" />
                   <div>
                     <div className="font-semibold text-foreground">Service Coverage</div>
-                    <div className="text-muted-foreground">
+                    <div className="text-black">
                       25+ Cities across India<br />
                       Free pickup & delivery
                     </div>
@@ -207,19 +207,19 @@ const ContactSupport = () => {
             <div className="card-premium">
               <h4 className="text-lg font-semibold text-foreground mb-4">Why Choose Our Support?</h4>
               <div className="space-y-3 text-sm">
-                <div className="flex items-center text-muted-foreground">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                <div className="flex items-center text-black">
+                  <div className="w-2 h-2 bg-[#4169E1] rounded-full mr-3"></div>
                   24/7 Customer Support Available
                 </div>
-                <div className="flex items-center text-muted-foreground">
+                <div className="flex items-center text-black">
                   <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
                   Average Response Time: Under 30 minutes
                 </div>
-                <div className="flex items-center text-muted-foreground">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
+                <div className="flex items-center text-black">
+                  <div className="w-2 h-2 bg-[#4169E1] rounded-full mr-3"></div>
                   Multilingual Support (Hindi, English, Tamil)
                 </div>
-                <div className="flex items-center text-muted-foreground">
+                <div className="flex items-center text-black">
                   <div className="w-2 h-2 bg-gold rounded-full mr-3"></div>
                   Dedicated Account Managers for High-Value Sales
                 </div>
