@@ -21,12 +21,8 @@ const HeroSection = () => {
       {/* Hero Content */}
       <div className="relative z-10 text-center max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16">
         <div className="animate-fade-in-scale">
- 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-glow">Sell kar</span>
-            <br />
-            <span className="text-foreground"></span>
- 
+          
+          {/* COMBINED AND CORRECTED H1 STRUCTURE */}
           <h1 className="font-extrabold mb-8">
             <span className="block text-5xl sm:text-6xl lg:text-7xl text-blue-600 leading-tight">
               SELLKAR
@@ -38,8 +34,8 @@ const HeroSection = () => {
               </span>
               <span className="block flex-1 h-0.5 bg-gradient-to-l from-transparent via-blue-600 to-blue-600"></span>
             </span>
- 
           </h1>
+          {/* END COMBINED H1 */}
           
           <p className="text-xl sm:text-2xl lg:text-3xl text-black mb-4 font-light">
             Your Trusted Marketplace for Quality Electronics
