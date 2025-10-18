@@ -28,7 +28,6 @@ const Testimonials = () => {
       rating: 5,
       text: "Sold my Samsung Galaxy S23 Ultra here and got ₹35,000 - much better than other platforms. The entire process was transparent and trustworthy.",
       location: "Delhi"
- 
     },
     {
       id: 4,
@@ -56,7 +55,6 @@ const Testimonials = () => {
       rating: 5,
       text: "The quote was accurate, pickup was on time, and payment was instant. No hidden charges, no complications. Exactly what they promise!",
       location: "Chennai"
- 
     }
   ];
 
@@ -66,12 +64,10 @@ const Testimonials = () => {
         <div className="text-center mb-16 animate-fade-in-scale">
           <h2 className="text-4xl sm:text-5xl font-bold mb-6">
             What Our <span className="text-blue-700">Customers Say</span>
-          </h2>           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Join thousands of satisfied customers who have trusted sell kar for their device selling needs. 
- 
-          <p className="text-xl text-black max-w-3xl mx-auto">
-            Join thousands of satisfied customers who have trusted Premium Gadgets for their device selling needs. 
- 
+          </h2>
+          {/* Combined and Cleaned up the two redundant <p> tags */}
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Join thousands of satisfied customers who have trusted Premium Gadgets (or 'sell kar') for their device selling needs. 
             Real reviews from real customers across India.
           </p>
         </div>
@@ -101,18 +97,20 @@ const Testimonials = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={testimonial.id}
-              className="testimonial-card animate-slide-in-up"
+              // Added relative for absolute positioning of quote mark
+              className="testimonial-card relative p-6 bg-white rounded-xl shadow-lg animate-slide-in-up" 
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Rating Stars */}
+              {/* Rating Stars - Fixed the text-gold class */}
               <div className="flex mb-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-gold fill-current" />
+                  <Star key={i} className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                  // Changed 'text-gold fill-current' to 'text-yellow-500 fill-yellow-500'
                 ))}
               </div>
 
               {/* Testimonial Text */}
-              <blockquote className="text-foreground mb-6 leading-relaxed">
+              <blockquote className="text-gray-700 mb-6 leading-relaxed">
                 "{testimonial.text}"
               </blockquote>
 
@@ -121,17 +119,17 @@ const Testimonials = () => {
                 <img 
                   src={testimonial.image} 
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover mr-4"
+                  className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-blue-700"
                 />
                 <div>
-                  <div className="font-semibold text-foreground">{testimonial.name}</div>
-                  <div className="text-sm text-black">{testimonial.role}</div>
-                  <div className="text-xs text-primary">{testimonial.location}</div>
+                  <div className="font-semibold text-gray-900">{testimonial.name}</div>
+                  <div className="text-sm text-gray-500">{testimonial.role}</div>
+                  <div className="text-xs text-blue-700">{testimonial.location}</div>
                 </div>
               </div>
 
               {/* Decorative Quote */}
-              <div className="absolute top-4 right-4 text-6xl text-primary/10 font-serif">"</div>
+              <div className="absolute top-4 right-4 text-6xl text-blue-700/10 font-serif">"</div>
             </div>
           ))}
         </div>
@@ -143,7 +141,8 @@ const Testimonials = () => {
           </p>
           <button 
             onClick={() => document.getElementById('price-evaluation')?.scrollIntoView({ behavior: 'smooth' })}
-            className="btn-hero pulse-glow bg-blue-700 hover:bg-blue-800 text-black"
+            className="btn-hero pulse-glow bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3 px-8 rounded-full transition duration-300"
+            // Added default button classes since btn-hero and pulse-glow are likely custom
           >
             Start Selling Today
           </button>
