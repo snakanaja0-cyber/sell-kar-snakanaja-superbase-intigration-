@@ -1,39 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Home, MapPin, CheckCircle } from "lucide-react";
+import { citiesApi } from "@/lib/api";
+import { toast } from "sonner";
+import type { Database } from "@/lib/database.types";
+
+type City = Database['public']['Tables']['cities']['Row'];
 
 const CitySelection = () => {
   const { brandId, deviceId } = useParams();
   const navigate = useNavigate();
   const deviceType = window.location.pathname.split("/")[1].replace("sell-", "");
   const [selectedCity, setSelectedCity] = useState<string>("");
+  const [cities, setCities] = useState<City[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const cities = [
-    { id: "bangalore", name: "BANGALORE", iconUrl: "https://cashforphone.in/assets/images/city/BANGALORE.png" },
-    { id: "delhi", name: "DELHI", iconUrl: "https://cashforphone.in/assets/images/city/DELHI%20NCR.png" },
-    { id: "mumbai", name: "MUMBAI", iconUrl: "https://cashforphone.in/assets/images/city/MUMBAI.png" },
-    { id: "chennai", name: "CHENNAI", iconUrl: "https://cashforphone.in/assets/images/city/CHENNAI.png" },
-    { id: "hyderabad", name: "HYDERABAD", iconUrl: "https://cashforphone.in/assets/images/city/HYDERABAD.png" },
-    { id: "thane", name: "THANE", iconUrl: "https://cashforphone.in/assets/images/city/THANE.png" },
-    { id: "jaipur", name: "JAIPUR", iconUrl: "https://cashforphone.in/assets/images/city/JAIPUR.png" },
-    { id: "pune", name: "PUNE", iconUrl: "https://cashforphone.in/assets/images/city/PUNE.png" },
-    { id: "agra", name: "AGRA", iconUrl: "https://cashforphone.in/assets/images/city/AGRA.png" },
-    { id: "kolkata", name: "KOLKATA", iconUrl: "https://cashforphone.in/assets/images/city/KOLKATA.png" },
-    { id: "gorakhpur", name: "GORAKHPUR", iconUrl: "https://cashforphone.in/assets/images/city/GORAKHPUR.png" },
-    { id: "mathura", name: "MATHURA", iconUrl: "https://cashforphone.in/assets/images/city/MATHURA.png" },
-    { id: "banaras", name: "BANARAS", iconUrl: "https://cashforphone.in/assets/images/city/BANARAS.png" },
-    { id: "lucknow", name: "LUCKNOW", iconUrl: "https://cashforphone.in/assets/images/city/LUCKNOW.png" },
-    { id: "kanpur", name: "KANPUR", iconUrl: "https://cashforphone.in/assets/images/city/KANPUR.png" },
-    { id: "chandigarh", name: "CHANDIGARH", iconUrl: "https://cashforphone.in/assets/images/city/CHANDIGARH.png" },
-    { id: "amritsar", name: "AMRITSAR", iconUrl: "https://cashforphone.in/assets/images/city/AMRITSAR.png" },
-    { id: "ludhiana", name: "LUDHIANA", iconUrl: "https://cashforphone.in/assets/images/city/LUDHIANA.png" },
-    { id: "patna", name: "PATNA", iconUrl: "https://cashforphone.in/assets/images/city/PATNA.png" },
-  ];
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const data = await citiesApi.getAll();
+        setCities(data);
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+        toast.error('Failed to load cities');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
 
   const handleCitySelect = (cityId: string) => {
     setSelectedCity(cityId);
+    localStorage.setItem('selectedCityId', cityId);
+
+    const selectedCityData = cities.find(c => c.id === cityId);
+    if (selectedCityData) {
+      localStorage.setItem('selectedCityName', selectedCityData.name);
+    }
+
     if (deviceType && brandId && deviceId) {
       navigate(
         `/sell-${deviceType}/brand/${brandId}/device/${deviceId}/city/${cityId}/variant`
@@ -56,6 +64,11 @@ const CitySelection = () => {
           </div>
 
           {/* Cities Grid */}
+          {isLoading ? (
+            <div className="text-center py-12">
+              <p className="text-lg text-muted-foreground">Loading cities...</p>
+            </div>
+          ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-8">
             {cities.map((city) => (
               <Card
@@ -70,14 +83,10 @@ const CitySelection = () => {
                 {/* --- MODIFIED INTERNAL LAYOUT --- */}
                 <div className="flex flex-col items-center text-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <img
-                      src={city.iconUrl}
-                      alt={city.name}
-                      className="w-6 h-6 object-contain"
-                    />
+                    <MapPin className="w-6 h-6 text-primary" />
                   </div>
                   <h3 className="text-base font-semibold text-foreground h-12 flex items-center">
-                    {city.name}
+                    {city.name.toUpperCase()}
                   </h3>
                 </div>
                 {selectedCity === city.id && (
@@ -114,6 +123,7 @@ const CitySelection = () => {
               )}
             </Card>
           </div>
+          )}
         </div>
       </div>
     </div>

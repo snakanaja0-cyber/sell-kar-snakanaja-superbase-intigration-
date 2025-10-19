@@ -1,51 +1,89 @@
-import { useState, useEffect } from "react"; // <-- Import useEffect
+import { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import Confetti from "react-confetti"; // <-- Import Confetti
-import useWindowSize from "react-use/lib/useWindowSize"; // <-- Import useWindowSize
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ChevronLeft, Smartphone, CheckCircle } from "lucide-react";
+import { phoneAuth } from "@/lib/auth";
+import { useAuth } from "@/lib/auth";
+import { profilesApi } from "@/lib/api";
+import { toast } from "sonner";
 
 const OtpVerification = () => {
   const { brandId, deviceId, cityId } = useParams();
   const deviceType = window.location.pathname.split("/")[1].replace("sell-", "");
   const navigate = useNavigate();
-  const { width, height } = useWindowSize(); // <-- Get window dimensions
+  const { width, height } = useWindowSize();
+  const { user } = useAuth();
 
   const [phoneNumber, setPhoneNumber] = useState("");
   const [otp, setOtp] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
-  const [showConfetti, setShowConfetti] = useState(false); // <-- New state for confetti
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSendOtp = () => {
-    if (phoneNumber.length === 10) {
+  const handleSendOtp = async () => {
+    if (phoneNumber.length !== 10) return;
+
+    setIsLoading(true);
+    try {
+      await phoneAuth.sendOTP(phoneNumber);
       setShowOtpInput(true);
-      alert("OTP sent to your phone number!");
+      toast.success("OTP sent to your phone number!");
+    } catch (error: any) {
+      console.error('Error sending OTP:', error);
+      toast.error(error.message || "Failed to send OTP. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleVerifyOtp = () => {
-    if (otp === "1234") {
-      // demo OTP
+  const handleVerifyOtp = async () => {
+    if (otp.length !== 6) return;
+
+    setIsLoading(true);
+    try {
+      await phoneAuth.verifyOTP(phoneNumber, otp);
+
+      const { data: { user: authUser } } = await import('@/lib/supabase').then(m => m.supabase.auth.getUser());
+
+      if (authUser) {
+        await profilesApi.upsert({
+          id: authUser.id,
+          phone_number: phoneNumber,
+          full_name: null,
+          email: null,
+        });
+      }
+
       setIsVerified(true);
-      setShowConfetti(true); // <-- Trigger confetti on verification
-    } else {
-      alert("Invalid OTP. Use 1234 for demo.");
+      setShowConfetti(true);
+      toast.success("Phone number verified successfully!");
+    } catch (error: any) {
+      console.error('Error verifying OTP:', error);
+      toast.error(error.message || "Invalid OTP. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // New effect to hide confetti after a few seconds
   useEffect(() => {
     if (isVerified) {
       const timer = setTimeout(() => {
         setShowConfetti(false);
-      }, 7000); // Confetti will be visible for 7 seconds
-
-      return () => clearTimeout(timer); // Cleanup timer
+      }, 7000);
+      return () => clearTimeout(timer);
     }
   }, [isVerified]);
+
+  useEffect(() => {
+    if (user) {
+      setIsVerified(true);
+    }
+  }, [user]);
 
   const handleContinue = () => {
     navigate(
@@ -179,11 +217,11 @@ const OtpVerification = () => {
 
                 <Button
                   onClick={handleSendOtp}
-                  disabled={phoneNumber.length !== 10}
+                  disabled={phoneNumber.length !== 10 || isLoading}
                   className="w-full h-12"
                   style={{ backgroundColor: "royalBlue", color: "black" }}
                 >
-                  Send OTP
+                  {isLoading ? "Sending..." : "Send OTP"}
                 </Button>
               </>
             ) : (
@@ -193,7 +231,7 @@ const OtpVerification = () => {
                     OTP sent to +91 {phoneNumber}
                   </p>
                   <p className="text-sm" style={{ color: "black" }}>
-                    Use <strong>1234</strong> for demo
+                    Enter the 6-digit code
                   </p>
                 </div>
 
@@ -206,23 +244,23 @@ const OtpVerification = () => {
                   </label>
                   <Input
                     type="text"
-                    placeholder="Enter 4-digit OTP"
+                    placeholder="Enter 6-digit OTP"
                     value={otp}
                     onChange={(e) =>
-                      setOtp(e.target.value.replace(/\D/g, "").slice(0, 4))
+                      setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))
                     }
                     className="h-12 text-center text-xl tracking-widest"
-                    maxLength={4}
+                    maxLength={6}
                   />
                 </div>
 
                 <Button
                   onClick={handleVerifyOtp}
-                  disabled={otp.length !== 4}
+                  disabled={otp.length !== 6 || isLoading}
                   className="w-full h-12"
                   style={{ backgroundColor: "royalBlue", color: "black" }}
                 >
-                  Verify OTP
+                  {isLoading ? "Verifying..." : "Verify OTP"}
                 </Button>
 
                 <Button

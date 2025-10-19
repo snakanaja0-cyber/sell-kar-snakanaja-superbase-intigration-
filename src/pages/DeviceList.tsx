@@ -1,7 +1,13 @@
 import { useParams, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { devicesApi } from "@/lib/api";
+import { toast } from "sonner";
+import type { Database } from "@/lib/database.types";
+
+type Device = Database['public']['Tables']['devices']['Row'];
 
 // Move deviceData outside component to prevent re-creation on each render
 const deviceData = {
@@ -118,18 +124,35 @@ type BrandIdKey<T extends DeviceTypeKey> = keyof typeof deviceData[T];
 
 const DeviceList = () => {
     const { brandId } = useParams<{ brandId: string }>();
-    // Logic to correctly extract deviceType from URL pathname like '/sell-phone/brand/apple'
     const deviceType = window.location.pathname.split('/')[1]?.replace('sell-', '') || '';
+    const [devices, setDevices] = useState<Device[]>([]);
+    const [brandName, setBrandName] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
 
-    // Corrected logic to safely access nested data
-    const isDeviceTypeValid = deviceType in deviceData;
-    const isBrandIdValid = brandId && isDeviceTypeValid && brandId in deviceData[deviceType as DeviceTypeKey];
+    useEffect(() => {
+        const fetchDevices = async () => {
+            if (!brandId) return;
 
-    let devices = [];
-    if (isBrandIdValid) {
-        // Safely assert types for access
-        devices = deviceData[deviceType as DeviceTypeKey][brandId as BrandIdKey<DeviceTypeKey>];
-    }
+            try {
+                const devicesData = await devicesApi.getDevicesByBrand(brandId);
+                setDevices(devicesData);
+
+                if (devicesData.length > 0) {
+                    const deviceWithBrand = await devicesApi.getDeviceById(devicesData[0].id);
+                    if (deviceWithBrand) {
+                        setBrandName(deviceWithBrand.device_brands.name);
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching devices:', error);
+                toast.error('Failed to load devices');
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchDevices();
+    }, [brandId]);
 
     const backPath = `/sell-${deviceType}`;
 
@@ -150,41 +173,48 @@ const DeviceList = () => {
                     <div className="text-center mb-12 animate-fade-in">
                         <h1 className="text-4xl sm:text-5xl font-bold mb-6">
                             Choose Your
-                            <span style={{ color: "royalBlue" }}> {getBrandName(brandId || "")}</span> Device
+                            <span style={{ color: "royalBlue" }}> {brandName}</span> Device
                         </h1>
                         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                             Select your specific device model to get an accurate quote
                         </p>
                     </div>
                     {/* Device Grid */}
-                    <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                        {devices.map((device) => (
-                            <Link key={device.id} to={`/sell-${deviceType}/brand/${brandId}/device/${device.id}/city`}>
-                                <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 overflow-hidden flex flex-col h-full">
-                                    {/* Conditionally render image if it exists */}
-                                    {device.image && (
-                                        <div className="aspect-square overflow-hidden">
-                                            <img
-                                                src={device.image}
-                                                alt={device.name}
-                                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-                                                loading="lazy"
-                                            />
-                                        </div>
-                                    )}
-                                    <div className="p-2 text-center flex-grow flex flex-col justify-center">
-                                        <h3 className="font-semibold text-foreground text-sm leading-tight">{device.name}</h3>
-                                    </div>
-                                </Card>
-                            </Link>
-                        ))}
-                    </div>
-                    {devices.length === 0 && (
+                    {isLoading ? (
                         <div className="text-center py-12">
-                            <p className="text-xl text-muted-foreground">
-                                No devices found for this brand. Please try another brand or use the search function.
-                            </p>
+                            <p className="text-xl text-muted-foreground">Loading devices...</p>
                         </div>
+                    ) : (
+                        <>
+                            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                {devices.map((device) => (
+                                    <Link key={device.id} to={`/sell-${deviceType}/brand/${brandId}/device/${device.id}/city`}>
+                                        <Card className="card-premium cursor-pointer hover:scale-105 transition-all duration-300 overflow-hidden flex flex-col h-full">
+                                            {device.image_url && (
+                                                <div className="aspect-square overflow-hidden">
+                                                    <img
+                                                        src={device.image_url}
+                                                        alt={device.name}
+                                                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            )}
+                                            <div className="p-2 text-center flex-grow flex flex-col justify-center">
+                                                <h3 className="font-semibold text-foreground text-sm leading-tight">{device.name}</h3>
+                                            </div>
+                                        </Card>
+                                    </Link>
+                                ))}
+                            </div>
+                            {devices.length === 0 && (
+                                <div className="text-center py-12">
+                                    <p className="text-xl text-muted-foreground">
+                                        No devices found for this brand.
+                                    </p>
+                                </div>
+                            )}
+                        </>
                     )}
                 </div>
             </div>
